@@ -17,7 +17,7 @@ class SoarNegoApp extends Component{
     
             <CKEditor
                 editor={ ClassicEditor }
-                data="<p>  SoarNego text editor area</p>"
+                data="<p>  SoarNego text editor area</p><p>  SoarNego text editor area</p>"
                 
                 
                 
