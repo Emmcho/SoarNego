@@ -1,5 +1,9 @@
 
 import './App.css';
+import './bootstrap.css';
+import Split from 'react-split';
+import SplitPane from 'react-split-pane';
+
 
 // function App() {
 //   return (
@@ -13,31 +17,26 @@ import './App.css';
 import React, { Component } from 'react';
 import { CKEditor } from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+import SoarNegoApp from './SoarNego/SoarNegoApp';
 
 class App extends Component {
     render() {
         return (
             <div className="App">
-                <h2>Using CKEditor 5 build in React</h2>
-                <CKEditor
-                    editor={ ClassicEditor }
-                    data="<p>This is jiust a toy test of SoarNego App. Using CK-Editor 5</p>"
-                    onReady={ editor => {
-                        // You can store the "editor" and use when it is needed.
-                        console.log( 'Editor is ready to use!', editor );
-                    } }
-                    onChange={ ( event, editor ) => {
-                        const data = editor.getData();
-                        console.log( { event, editor, data } );
-                    } }
-                    onBlur={ ( event, editor ) => {
-                        console.log( 'Blur.', editor );
-                    } }
-                    onFocus={ ( event, editor ) => {
-                        console.log( 'Focus.', editor );
-                    } }
-                />
-            </div>
+            <Split direction = 'vertical' sizes={[10,90]} style={{height: 'calc(100vh - 1rem)'}}>
+              <div className="upperPane"> D </div>
+              <Split className="flex" sizes={[15,70,15]}>
+                <div> File System here</div>
+                <div> <SoarNegoApp/> </div>
+                <div> Features buttons here </div>
+                
+              </Split>
+              
+            </Split>
+            
+          </div>
+      
+            
         );
     }
 }
