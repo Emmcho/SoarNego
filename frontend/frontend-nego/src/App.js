@@ -14,21 +14,35 @@ import SplitPane from 'react-split-pane';
 // }
 
 // export default App;
-import React, { Component } from 'react';
-import { CKEditor } from '@ckeditor/ckeditor5-react';
-import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+import React, { Component, useState } from 'react';
 import SoarNegoApp from './SoarNego/SoarNegoApp';
+import BasicExample from './SoarNego/RightPane';
+import BasicExample1 from './SoarNego/RightPane';
+import Editor from './SoarNego/QuillEditor';
 
-class App extends Component {
-    render() {
+
+
+function App () {
+  //const[state,setState] = useState(contract1)
+  //const[value, setValue] = useState(Contract)
+ 
+
+  function handleClick(){
+    console.log("This div was clicked")
+  }
+
+    
+      
         return (
             <div className="App">
             <Split direction = 'vertical' sizes={[10,90]} style={{height: 'calc(100vh - 1rem)'}}>
               <div className="upperPane"> D </div>
               <Split className="flex" sizes={[15,70,15]}>
-                <div> File System here</div>
-                <div> <SoarNegoApp/> </div>
-                <div> Features buttons here </div>
+                <div > Left Pane</div>
+                <div> <Editor/> </div>
+                <div>  <BasicExample/>
+                       <BasicExample1/>
+                </div>
                 
               </Split>
               
@@ -38,7 +52,7 @@ class App extends Component {
       
             
         );
-    }
+    
 }
 
 export default App;

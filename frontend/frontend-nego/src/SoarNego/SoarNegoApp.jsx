@@ -5,10 +5,18 @@ import SplitPane, {Pane} from "split-pane-react/esm/SplitPane";
 import 'split-pane-react/esm/themes/default.css'
 import { CKEditor } from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+import Contact from "../dataFile1/modcontract.json"
+import { myScript } from "./myScript";
+import { Contract } from "./Contract";
+import { SomeComponentAsString } from "./Contract";
 
-class SoarNegoApp extends Component{
+function SoarNegoApp () {
+    //console.log(Contract)
+   console.log({SomeComponentAsString})
+   const editorData = {SomeComponentAsString}
+   //console.log(editorData.FileN) 
     
-    render(){
+    
         
         return(
             
@@ -17,7 +25,7 @@ class SoarNegoApp extends Component{
     
             <CKEditor
                 editor={ ClassicEditor }
-                data="<p>  SoarNego text editor area</p><p>  SoarNego text editor area</p>"
+                data={SomeComponentAsString}
                 
                 
                 
@@ -41,7 +49,6 @@ class SoarNegoApp extends Component{
 
 
         )
-    }
+    
 }
 export default SoarNegoApp
-

@@ -1,6 +1,5 @@
-
-
 {
+	"FileName": "Contract Document 1",
 	"Version": "Version 1.0",
 	"Title": "Agreement between",
 	"Party": "Between Party A and B",
@@ -16,8 +15,8 @@
 	"ISBN": null,
 	"Chapter": [
 		{
-			"Heading": null,
-			"Label":  null,
+			"Heading": "Chapter one",
+			"Label": "1",
 			"id": "ch1",
 			"Article": [
 				{
@@ -27,11 +26,11 @@
 					"Clause": [
 						{
 							"Heading": "Purpose",
-							"Label": null,
+							"Label": "Clause 1",
 							"id": "ch1ar1cl1",
 							"Paragraph": [
 								{
-									"Heading": null,
+									"Heading": "First paragraph",
 									"Label": "1.1",
 									"id": "ch1ar1cl1pa1",
 									"Sentence": [
@@ -49,7 +48,7 @@
 						},
 						{
 							"Heading": "Definitions",
-							"Label": null,
+							"Label": "Second Paragraph",
 							"id": "ch1ar1cl2",
 							"Paragraph": [
 								{
@@ -66,12 +65,12 @@
 							]
 						},
 						{
-							"Heading": null,
-							"Label": null,
+							"Heading": "Heading header",
+							"Label": "Head3",
 							"id": "ch1ar1cl3",
 							"Paragraph": [
 								{
-									"Heading": null,
+									"Heading": "Paragraph heading",
 									"Label": 1.3,
 									"id": "ch1ar1cl3pa1",
 									"Sentence": [
@@ -84,12 +83,12 @@
 							]
 						},
 						{
-							"Heading": null,
-							"Label": null,
+							"Heading": "Sentence heading",
+							"Label": "Head4",
 							"id": "ch1ar1cl4",
 							"Paragraph": [
 								{
-									"Heading": null,
+									"Heading": "Paragraph heading",
 									"Label": 1.4,
 									"id": "ch1ar1cl4pa1",
 									"Sentence": [
@@ -102,13 +101,13 @@
 							]
 						},
 						{
-							"Heading": null,
-							"Label": null,
+							"Heading": "Paragraph heading",
+							"Label": "Paragraph 5",
 							"id": "ch1ar1cl5",
 							"Paragraph": [
 								{
-									"Heading": null,
-									"Label": 1.5,
+									"Heading": "Sentence heading",
+									"Label": "1.5",
 									"id": "ch1ar1cl5pa1",
 									"Sentence": [
 										{
@@ -120,12 +119,12 @@
 							]
 						},
 						{
-							"Heading": null,
-							"Label": null,
+							"Heading": "Paragraph heading",
+							"Label": "Paragrapg 6",
 							"id": "ch1ar1cl6",
 							"Paragraph": [
 								{
-									"Heading": null,
+									"Heading": "Sentence heading",
 									"Label": 1.6,
 									"id": "ch1ar1cl6pa1",
 									"Sentence": [
@@ -138,12 +137,12 @@
 							]
 						},
 						{
-							"Heading": null,
-							"Label": null,
+							"Heading": "Clause Heading",
+							"Label": "Clause7",
 							"id": "ch1ar1cl7",
 							"Paragraph": [
 								{
-									"Heading": null,
+									"Heading": "Paragraph heading",
 									"Label": 1.7,
 									"id": "ch1ar1cl7pa1",
 									"Sentence": [
@@ -154,8 +153,8 @@
 									]
 								},
 								{
-									"Heading": null,
-									"Label": null,
+									"Heading": "Sentence heading",
+									"Label": "Sentence2",
 									"id": "ch1ar1cl7pa1",
 									"Sentence": [
 										{
@@ -170,6 +169,7 @@
 
 					]
 				}
+
 				
 			]
 		}
