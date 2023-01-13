@@ -1,5 +1,6 @@
-import { useState, forwardRef } from "react"
-import { useImperativeHandle } from "react"
+//import { useState, forwardRef } from "react"
+//import { useImperativeHandle } from "react"
+import Button from 'react-bootstrap/Button';
 
 const ContextMenu = (props )  =>{
 
@@ -7,8 +8,15 @@ const ContextMenu = (props )  =>{
 
     return (
         <div style={props.css}>
-            <button>AC</button>
-            <button>AC1</button>
+            
+
+            <Button variant="secondary">SeePrevious</Button>
+            <Button variant="secondary">ComparePrevious</Button>
+            <Button variant="secondary">SearchPrevious</Button>
+            <Button variant="secondary">SeeHistory</Button>
+            
+        
+            
         </div>
     )
 }

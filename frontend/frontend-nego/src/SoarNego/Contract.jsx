@@ -36,7 +36,7 @@ export function Contract ()  {
     return (
 
       <>
-      <ContextMenu/>
+     
 
       <div>
         <h4>{part.Label}</h4>

@@ -19,6 +19,8 @@ import SoarNegoApp from './SoarNego/SoarNegoApp';
 import BasicExample from './SoarNego/RightPane';
 import BasicExample1 from './SoarNego/RightPane';
 import Editor from './SoarNego/QuillEditor';
+import Features from './SoarNego/FeaturesBar';
+import Explorer from './SoarNego/FileExplorerPane';
 
 
 
@@ -36,9 +38,9 @@ function App () {
         return (
             <div className="App">
             <Split direction = 'vertical' sizes={[10,90]} style={{height: 'calc(100vh - 1rem)'}}>
-              <div className="upperPane"> D </div>
+              <div className="upperPane"> <Features/> </div>
               <Split className="flex" sizes={[15,70,15]}>
-                <div > Left Pane</div>
+                <div > <Explorer/></div>
                 <div> <Editor/> </div>
                 <div>  <BasicExample/>
                        <BasicExample1/>

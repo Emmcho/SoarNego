@@ -50,7 +50,7 @@ const formats = [
 function Editor() {
   //const editorData = {SomeComponentAsString}
  
-  console.log({SomeComponentAsString})
+  //console.log({SomeComponentAsString})
   const [value, setValue] = useState(SomeComponentAsString);
 
   const handleChange = (content, delta, source, editor) => {
@@ -63,11 +63,12 @@ function Editor() {
 
   const [css, setCSS] = useState({display: 'block'})
   const [selectedText, setSelectedText] = useState('')
+  const [showMenu, setShowMenu] = useState(false)
 
   const handleChangeSelection =(range, oldRange, source) => {
-    console.log(range)
-    console.log(oldRange)
-    console.log(source)
+    //console.log(range)
+    //console.log(oldRange)
+    //console.log(source)
     //var holder = quill.value
     //console.log("Selection chnaged")
    
@@ -75,14 +76,16 @@ function Editor() {
       if (range) {
         if (range.length == 0) {
           console.log('User cursor is on', range.index);
+          setShowMenu(false)
         } else {
           var text = source.getText(range.index, range.length);
           console.log('User has highlighted', text);
           
 
           const bounds = source.getBounds(range)
-          const left = bounds.left + bounds.width/2 - 400
+          const left = bounds.left + bounds.width/2 - 550
           const top  = bounds.bottom +75
+          setShowMenu(true)
           setCSS({'display' : 'inline-block', top: top, left:left, position: 'relative'})
           setSelectedText(text)
       //     left: rangeBounds.left + rangeBounds.width/2 - $('#tooltip-controls').outerWidth()/2,
@@ -114,7 +117,12 @@ function Editor() {
   return (
     <Container>
 
-      <ContextMenu css={css} selectedText={selectedText}/>
+      {
+        showMenu && (
+          <ContextMenu css={css} selectedText={selectedText}/>
+        )
+      }
+      
 
       <ReactQuill
         style={{ height: "750px" }}
@@ -132,6 +140,7 @@ function Editor() {
 
 const Container = styled.div`
   height: 650px;
+  
 `;
 
 export default Editor;
