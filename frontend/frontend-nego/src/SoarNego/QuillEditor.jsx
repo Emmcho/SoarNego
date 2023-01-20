@@ -74,7 +74,7 @@ function Editor() {
    
     
       if (range) {
-        if (range.length == 0) {
+        if (range.length === 0) {
           console.log('User cursor is on', range.index);
           setShowMenu(false)
         } else {

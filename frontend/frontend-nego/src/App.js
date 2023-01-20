@@ -1,58 +1,17 @@
 
-import './App.css';
-import './bootstrap.css';
-import Split from 'react-split';
-import SplitPane from 'react-split-pane';
-
-
-// function App() {
-//   return (
-//     <div className="App">
-//       My Hello world
-//     </div>
-//   );
-// }
-
-// export default App;
-import React, { Component, useState } from 'react';
-//SoarNegoApp implements CKEditor that we are not using anymore
-//import SoarNegoApp from './SoarNego/SoarNegoApp';
-import BasicExample from './SoarNego/RightPane';
-import BasicExample1 from './SoarNego/RightPane';
-import Editor from './SoarNego/QuillEditor';
-import Features from './SoarNego/FeaturesBar';
-import Explorer from './SoarNego/FileExplorerPane';
+//import SoarNegoAppPage from './SoarNego/SoarNegoAppPage';
+import SoarNegoConnectorPage from "./SoarNego/SoarNegoConnectorPage";
 
 
 
 function App () {
-  //const[state,setState] = useState(contract1)
-  //const[value, setValue] = useState(Contract)
- 
-
-  function handleClick(){
-    console.log("This div was clicked")
-  }
+  
 
     
       
         return (
             <div className="App">
-            <Split direction = 'vertical' sizes={[10,90]} style={{height: 'calc(100vh - 1rem)'}}>
-              <div className="upperPane"> <Features/> </div>
-              <Split className="flex" sizes={[15,70,15]}>
-                {/* This is component to display working file directory */}
-                <div > <Explorer/></div>
-                {/* Text editor Component */}
-                <div> <Editor/> </div>
-                {/* Right side pane, meant for display of text processing from the text editor central pane  */}
-                <div>  <BasicExample/>
-                       <BasicExample1/>
-                </div>
-                
-              </Split>
-              
-            </Split>
+            <SoarNegoConnectorPage/>
             
           </div>
       

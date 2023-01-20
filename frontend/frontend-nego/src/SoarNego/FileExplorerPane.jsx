@@ -5,27 +5,28 @@ import {useState} from "react"
 function Explorer(){
     
     const [fileList, setfileList] = useState([]);
-    
-    const fileSelector = document.getElementById('file-selector')
     const pathVarName = "Emmanuel"
 
-   
+    const [welMsg, setwelMsg] = useState('')
 
-    const handleSelection = event =>{
+    //const handleSelection = event =>{
+    function handleSelection(e){
 
-        fileSelector.addEventListener('change', (event) => {
-            const fileList = event.target.files
-            const fileSelected = fileList.map((selFile)=>
-            console.log("Ayeleso" )
-            )
+        // fileSelector.addEventListener('open', (event) => {
+        //     const fileList = event.target.files
+        //     const fileSelected = fileList.map((selFile)=>
+        //     console.log("Ayeleso" )
+        //     )
             
-            //console.log(fileList)
-            }
-        )
+        //     //console.log(fileList)
+        //     }
+        // )
+        
+        console.log("Ayeleso")
     }
 
     
-    const [welMsg, setwelMsg] = useState('')
+   
 
 
 
@@ -47,6 +48,7 @@ function Explorer(){
         HelloWorldService.executeHelloWorldServicePathVariable(pathVarName)
         .then(response => handleSuccessfulResponse(response))
         .catch(error => handleError(error))
+        console.log("Ayeleso Emmanuel")
         
     }
 
@@ -65,7 +67,7 @@ function Explorer(){
     .then(
         response => {
             setfileList(response.data)
-
+            console.log(response.data)
         }
     )
     //.catch()
@@ -104,7 +106,10 @@ function Explorer(){
             <div>
                 
                     {<ul>
-                        {fileList.map((f) =>  (<li> {f.id}</li> 
+                        {fileList.map((f) =>  (<li> { f.fileData} {f.id}</li>
+                    
+                       
+                        
                         ))}
 
                     </ul>}
@@ -124,3 +129,6 @@ function Explorer(){
     )
 }
 export default Explorer;
+
+
+
