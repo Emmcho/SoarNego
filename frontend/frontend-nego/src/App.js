@@ -1,5 +1,6 @@
 
 //import SoarNegoAppPage from './SoarNego/SoarNegoAppPage';
+import React from 'react';
 import SoarNegoConnectorPage from "./SoarNego/SoarNegoConnectorPage";
 
 
