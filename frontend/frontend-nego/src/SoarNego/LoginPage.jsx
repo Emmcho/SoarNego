@@ -18,6 +18,7 @@ function LoginPage (){
     function handleLoginClicked(value){
         if(value.username==='user' && value.password==='dummy'){
             AuthenticationService.registerSuccessfulLogin(value.username,value.password)
+            console.log(AuthenticationService.isUserLoggedIn());
             navigate(`/soarnego`)
             
         }

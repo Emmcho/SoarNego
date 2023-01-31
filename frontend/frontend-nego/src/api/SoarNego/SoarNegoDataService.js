@@ -6,6 +6,13 @@ class SoarNegoDataService {
         //console.log('executed service')
     }
 
+    // retrieveFileIndex(){
+    //     return axios.post('http://localhost:8080/api/find/files/index')
+    //     //console.log('exec
+       
+
+    // }
+
 
 }
 
