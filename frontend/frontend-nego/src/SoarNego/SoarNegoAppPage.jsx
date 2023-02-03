@@ -3,6 +3,7 @@ import '../App.css'
 import '../bootstrap.css';
 import Split from 'react-split';
 
+
 //SoarNegoApp implements CKEditor that we are not using anymore
 //import SoarNegoApp from './SoarNego/SoarNegoApp';
 
@@ -11,6 +12,7 @@ import BasicExample1 from './RightPane';
 import Editor from './QuillEditor';
 import Features from './FeaturesBar';
 import Explorer from './FileExplorerPane';
+import PromiseEditor from './PromiseMirrorEditor';
 
 
 
@@ -25,7 +27,9 @@ function SoarNegoAppPage () {
                 {/* This is component to display working file directory */}
                 <div > <Explorer/></div>
                 {/* Text editor Component */}
-                <div> <Editor/> </div>
+                 {/* Quill component commented below */}
+                {/* <div> <Editor/> </div> */}
+                <div> <PromiseEditor/> </div>
                 {/* Right side pane, meant for display of text processing from the text editor central pane  */}
                 <div>  <BasicExample/>
                        <BasicExample1/>

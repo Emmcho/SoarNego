@@ -14,8 +14,8 @@ function HeaderComponent () {
                         {isUserLoggedIn && <li><Link className="nav-link" to="/soarnego">SoarNego</Link></li>}
                     </ul>
                     <ul className="navbar-nav navbar-collapse justify-content-end">
-                        {!isUserLoggedIn && <li><Link className="nav-link" to="/login">Login</Link></li>}
-                        {isUserLoggedIn && <li><Link className="nav-link" to="/logout" onClick={AuthenticationService.logout}>Logout</Link></li>}
+                        {!isUserLoggedIn && <div> <li><Link className="nav-link" to="/login">Login</Link></li></div>}
+                        {isUserLoggedIn && <div> <li><Link className="nav-link" to="/logout" onClick={AuthenticationService.logout}>Logout</Link></li></div>}
                         
                     </ul>
                 </nav>
