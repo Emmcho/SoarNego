@@ -9,48 +9,47 @@ import HeaderComponent from './HeaderComponent';
 import FooterComponent from './FooterComponent';
 import ErrorComponent from './ErrorComponent';
 import Layout from './Layout';
+import { UserProvider } from './providers/UserProvider';
 
 
 
 
 function SoarNegoConnectorPage () {
+
+
     
     
     
         return (
-            
-            <div className="SoarNegoConnectorPage">
+            <>
+                {/* <UserProvider child={ */}
+                     <div className="SoarNegoConnectorPage">
                 
                 {/* <AuthenticatedRoute> */}
 
                     <Router>
                         
-                            <HeaderComponent/>
 
                             
                             <Routes>
                                 
-                                <Route path="/" element={<Layout />}>
+                                {/* <Route path="/" element={<Layout />}> */}
                                             {/* <Route path='/soarnego' element ={
                                                 <AuthenticatedRoute>
                                                     <SoarNegoAppPage/>
                                                 </AuthenticatedRoute>
                                             }/> */}
                                         
-                                            {/* <Route element ={<AuthenticatedRoute/>}>
+                                            <Route path="/" element ={<AuthenticatedRoute child={<SoarNegoAppPage/>}/>} />
                                                 
-                                                <Route path="soarnego" element={
-                                                <SoarNegoAppPage/>
-                                                } />
-
-                                            </Route> */}
-                                            <Route path="/soarnego" element={<SoarNegoAppPage/>} />
+                                
+                                            {/* <Route path="/soarnego" element={<SoarNegoAppPage/>} /> */}
 
                                             <Route path="login" element={<LoginPage/>} />
                                             <Route path="logout" element={<LogoutComponent/>} />
                                             <Route path="*"  element = {<ErrorComponent/>} />
                                             
-                                </Route>
+                                {/* </Route> */}
                             </Routes>
                             <FooterComponent/>
                         
@@ -58,6 +57,10 @@ function SoarNegoConnectorPage () {
                     </Router>
                     {/* </AuthenticatedRoute> */}
             </div>
+                {/* }>
+                </UserProvider> */}
+            </>
+           
 
 
         )
