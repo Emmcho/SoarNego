@@ -1,39 +1,29 @@
 import React from "react"
-import HelloWorldService from "../api/SoarNego/HelloWorldService.js"
 import SoarNegoDataService from "../api/SoarNego/SoarNegoDataService.js"
 import {useState, useEffect} from "react"
 import axios from "axios";
-import Tree from "react-d3-tree";
+
 // to be implemented in replacement of react-d3-tree 
-import FolderTree from "react-folder-tree";
+import FolderTree, {testData} from "react-folder-tree";
 import 'react-folder-tree/dist/style.css';
-
-
+import FileContext from "./providers/FileExporerContext.jsx";
+import { useContext } from "react";
 
 
 function Explorer(){
+
+    const {fileItems, sendToEditorContentLoader } = useContext(FileContext)
+    const {addToFileList, addFileToSessionStorage} = useContext(FileContext)
     
     //Future enhancement is to be able to read multiple files at a time
     
     const [fileList, setfileList] = useState([]);
-    const [soarNegoDir, setSoarNegoDir] = useState(
-        {
-        name: "Root",
-        children: [
-        {
-            name: "First File",
-            attributes: {
-            department: "Testing",
-            }
-        
-        }
-        ]
-    })
+    
     const treObjHolder = []
     const [selFileName, setSelFileName] = useState('');
-    const [fileIndex, setfileIndex] = useState([]);
+   
     const [content, setContent] = useState('');
-    const [treeElemetLoaded, setTreeElemetLoaded] = useState(false);
+    
     let fileReader
     
  //Sample of a function to load hardcoded data from backend   
@@ -56,131 +46,86 @@ function Explorer(){
 
   });
     
-
+    const handleClick = (event) => {
+        //Initialize to '' so that when same file is clicked, OnChange will capture the event a a chenge of file selection
+        event.target.value = ''
+    }
   
     const handleFileRead = (e) => {
+        
         setContent(fileReader.result)
     }
 
-    const handleFileChosen = (file) => {
+
+    const handleFileClick = (state, event)=>{
+        //sending the file content to a context function API that saves it in the session storage 
+        sendToEditorContentLoader(state.nodeData.fileIndex)
+        
+
+    }
+
+        const handleFileChosen = (file) => {
         
        
 
-        fileReader = new FileReader();
-        fileReader.onloadend = handleFileRead;
-        fileReader.readAsText(file)
+            fileReader = new FileReader();
+            fileReader.onloadend = handleFileRead;
+            fileReader.readAsText(file)
+            
+
+            setSelFileName(file.name)
         
-
-        setSelFileName(file.name)
-       
-        const fileData = {
-            fileId: 1,
-            fileName:file.name,
-            fileContent: content
-          } 
-          if (fileData.fileName !== "" && fileData.fileContent!== "")
-          { console.log(fileData)
-                axios.post('http://localhost:8080/api/save/files',fileData)
-                .then(function (response){
-                console.log(response)
-
-                    setSoarNegoDir (prevState=>({...prevState,
-                        name: 'File Directory',
-                        children: [
-                        {
-                            name: fileData.fileName,
-                            attributes: {
-                            department: 'Production',
-                            }
-                        
-                        }
-                        ]
-                    }))
+            const fileData = {
+                fileId: 1,
+                fileName:file.name,
+                fileContent: content
+            } 
+            if (fileData.fileName !== "" && fileData.fileContent!== "")
+            { console.log(fileData)
+                    axios.post('http://localhost:8080/api/save/files',fileData)
+                    .then(function (response){
+                        console.log(response)
+                        addToFileList(response.data.fileName, 0,true,response.data.fileName+response.data.fileId)
+                        addFileToSessionStorage(response.data.fileName+response.data.fileId, response.data.fileContent)
+                    })
+                    
+                    .catch(function(error){
+                    console.log(error)
+                    })
                     
 
-                })
-                // treObjHolder.push(
-                //     {name: 'File Directory',
-                //     children: [
-                //         {
-                //             name: fileData.fileName,
-                //             attributes: {
-                //             department: 'Production',
-                //             }
-                        
-                //         }
-                //         ]}
-                // )
-               
-                console.log("Concat arrays",treObjHolder.concat(soarNegoDir))
-                console.log("This is it ", treObjHolder)
-                setTreeElemetLoaded(true)
-                .catch(function(error){
-                console.log(error)
-                })
-                
-
-            }
+                }
         
-      }
+        }
 
-      
-   
-  
     return(
         <>  
 
                         <div>
                             <label>Load a File</label>
-                            <input type="file" onChange={e => handleFileChosen(e.target.files[0])} name="fileLoader" id="myFile" accept=".json" ></input>
+                            <input type="file" onChange={e => handleFileChosen(e.target.files[0])}  onClick = {handleClick } name="fileLoader" id="myFile" accept=".txt" ></input>
                             
 
                         </div>
                        
 
-                    <p></p>
-                    <p></p>
-                       
-                   
-                    <p></p>
-                    <p></p>
-
-                    {/* <div>
-                        Click here to to load hardcoded files
-                        <button onClick={handleWorkFileDir} className="btn btn-success"> Load Files </button>
-                    
-                    </div> */}
-                
-            <p></p>
-            <p></p>
             <div>
                 
-                    {<ul>
-                        {fileList.map((f) =>  (<li> { f.fileData} {f.id}</li>
-                    
-                       
-                        
-                        ))}
-
-                    </ul>}
-
+                   
             </div>
-            <p></p>
-            <p></p>
-            {treeElemetLoaded && <div id="treeWrapper" style={{ width: '20em', height: '20em' }}>
-                            <Tree data={soarNegoDir} />
-                                  </div>}
+          
+            
+            <FolderTree
+                data={ fileItems}
+                onNameClick ={handleFileClick}
+                
+               
+                />
 
             
         
         </>
 
-        
-       
-           
-        
-             
-        
         
     )
 }

@@ -56,3 +56,6 @@ export const useUserContext = () => {
     return useContext(UserProviderContext)
 }
 
+// userContext.setAuthUser(value.username)
+
+
