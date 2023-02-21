@@ -1,18 +1,42 @@
 
 import 'remirror/styles/all.css';
 import { useContext, useCallback  } from 'react';
-import { BoldExtension, CalloutExtension, ItalicExtension,ImageExtension,DropCursorExtension} from 'remirror/extensions';
+import { BoldExtension, CalloutExtension, ItalicExtension,ImageExtension,DropCursorExtension,FontSizeExtension } from 'remirror/extensions';
 import { EditorComponent,ThemeProvider,useChainedCommands,
    useActive, Remirror, useRemirror,useCommands,
    useHelpers, useKeymap,Toolbar,
-   ToggleItalicButton, ToggleBoldButton } from '@remirror/react';
+   ToggleItalicButton, ToggleBoldButton,CommandButtonGroup,
+   CommandMenuItem,
+   DecreaseFontSizeButton,
+   DropdownButton,
+   IncreaseFontSizeButton, } from '@remirror/react';
 
 
 const extensions = () => [new BoldExtension(),
   new ItalicExtension(),new ImageExtension(),
 new ImageExtension({ enableResizing: true }),
-new DropCursorExtension()];
-
+new DropCursorExtension(),new FontSizeExtension({ defaultSize: '16', unit: 'px' })];
+const FONT_SIZES = ['8', '10', '12', '14', '16', '18', '24', '30'];
+const FontSizeButtons = () => {
+  const { setFontSize } = useCommands();
+  const { fontSize } = useActive();
+  return (
+    <DropdownButton aria-label='Set font size' icon='fontSize'>
+      {FONT_SIZES.map((size) => (
+        <CommandMenuItem
+          key={size}
+          commandName='setFontSize'
+          onSelect={() => setFontSize(size)}
+          enabled={setFontSize.enabled(size)}
+          active={fontSize({ size })}
+          label={size}
+          icon={null}
+          displayDescription={false}
+        />
+      ))}
+    </DropdownButton>
+  );
+};
 const hooks = [
   () => {
     const { getJSON } = useHelpers();
@@ -114,6 +138,11 @@ export const Editor=() =>{
         onChange={onChange}
       >
         <Toolbar>
+        <CommandButtonGroup>
+            <DecreaseFontSizeButton />
+            <FontSizeButtons />
+            <IncreaseFontSizeButton />
+          </CommandButtonGroup>
           <ToggleItalicButton />
           <ToggleBoldButton/>
           
