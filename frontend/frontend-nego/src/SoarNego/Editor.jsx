@@ -2,20 +2,20 @@
 import { useContext, useEffect } from 'react';
 import FileContext from './providers/FileExporerContext';
 import { BoldExtension, CalloutExtension, ItalicExtension } from 'remirror/extensions';
-import { EditorComponent, Remirror, useRemirror,useCommands} from '@remirror/react';
+import { EditorComponent,useActive, Remirror, useRemirror,useCommands} from '@remirror/react';
 import 'remirror/styles/all.css';
 
 export const Menu = () => {
   const { toggleBold, focus } = useCommands();
+  const active = useActive();
 
   return (
     <button
       onClick={() => {
         toggleBold();
         focus();
-      }}
-    >
-      Bold
+        }}style={{ fontWeight: active.bold() ? 'bold' : undefined }}
+        > B
     </button>
   );
 };
