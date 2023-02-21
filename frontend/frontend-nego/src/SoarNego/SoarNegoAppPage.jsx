@@ -12,8 +12,7 @@ import BasicExample1 from './RightPane';
 import Features from './FeaturesBar';
 import Explorer from './FileExplorerPane';
 import HeaderComponent from './HeaderComponent';
-import { WysiwygEditor } from '@remirror/react-editors/wysiwyg';
-
+import Editor from './Editor';
 
 function SoarNegoAppPage () {
   
@@ -28,16 +27,9 @@ function SoarNegoAppPage () {
                 {/* This is component to display working file directory */}
                 <div > <Explorer/></div>
                 {/* Text editor Component */}
-                 {/* Quill component commented below */}
-                {/* <div> <Editor/> </div> */}
-                
-               
-                <div style={{ padding: 16 }}>
-                  <WysiwygEditor placeholder='Enter text...' />
-                </div>
+      
+               <Editor></Editor>
 
-               
-                
                 {/* Right side pane, meant for display of text processing from the text editor central pane  */}
                 <div>  <BasicExample/>
                        <BasicExample1/>
