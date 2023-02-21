@@ -2,11 +2,23 @@
 import { useContext, useEffect } from 'react';
 import FileContext from './providers/FileExporerContext';
 import { BoldExtension, CalloutExtension, ItalicExtension } from 'remirror/extensions';
-import { EditorComponent, Remirror, useRemirror } from '@remirror/react';
+import { EditorComponent, Remirror, useRemirror,useCommands} from '@remirror/react';
 import 'remirror/styles/all.css';
 
-const Menu = () => <button onClick={() => alert('TBD')}>B</button>;
+export const Menu = () => {
+  const { toggleBold, focus } = useCommands();
 
+  return (
+    <button
+      onClick={() => {
+        toggleBold();
+        focus();
+      }}
+    >
+      Bold
+    </button>
+  );
+};
 
 export const Editor=() =>{
     const {UpdateProseMirrorEditorContent} = useContext(FileContext)
