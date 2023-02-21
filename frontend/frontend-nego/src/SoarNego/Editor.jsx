@@ -1,32 +1,51 @@
 
-import { useContext, useEffect } from 'react';
+import { useContext, useCallback  } from 'react';
 import FileContext from './providers/FileExporerContext';
 import { BoldExtension, CalloutExtension, ItalicExtension } from 'remirror/extensions';
-import { EditorComponent,useActive, Remirror, useRemirror,useCommands} from '@remirror/react';
+import { EditorComponent,useChainedCommands,useActive, Remirror, useRemirror,useCommands, useHelpers, useKeymap} from '@remirror/react';
 import 'remirror/styles/all.css';
+
+const hooks = [
+  () => {
+    const { getJSON } = useHelpers();
+
+    const handleSaveShortcut = useCallback(
+      ({ state }) => {
+        console.log(`Save to backend: ${JSON.stringify(getJSON(state))}`);
+
+        return true; // Prevents any further key handlers from being run.
+      },
+      [getJSON],
+    );
+
+    // "Mod" means platform agnostic modifier key - i.e. Ctrl on Windows, or Cmd on MacOS
+    useKeymap('Mod-s', handleSaveShortcut);
+  },
+];
 
 export const Menu = () => {
   const { toggleBold, focus } = useCommands();
   const active = useActive();
+  const chain = useChainedCommands();
 
   return (
     <button
       onClick={() => {
-        toggleBold();
-        focus();
+        chain // Begin a chain
+          .toggleBold()
+          .focus()
+          .run(); // A chain must always be terminated with `.run()`
         }}style={{ fontWeight: active.bold() ? 'bold' : undefined }}
-        > B
+        disabled={toggleBold.enabled() === false}> B
     </button>
   );
 };
 
 export const Editor=() =>{
-    const {UpdateProseMirrorEditorContent} = useContext(FileContext)
       const { manager, state } = useRemirror({
           extensions: () => [
             new BoldExtension(),
             new ItalicExtension(),
-            new CalloutExtension({ defaultType: 'warn' }),
           ],
         
           // Set the initial content.
@@ -46,7 +65,7 @@ export const Editor=() =>{
     
   return (
     <div className='remirror-theme'>
-      <Remirror manager={manager} initialContent={state}>
+      <Remirror manager={manager} initialContent={state} hooks={hooks} >
         {/* The text editor is placed above the menu to make the zIndex easier to manage for popups */}
         <EditorComponent />
         <Menu />
