@@ -1,7 +1,7 @@
 
 import 'remirror/styles/all.css';
 import { useCallback  } from 'react';
-import { BoldExtension, ItalicExtension,ImageExtension,DropCursorExtension,FontSizeExtension,HeadingExtension } from 'remirror/extensions';
+import { BoldExtension, ItalicExtension,ImageExtension,DropCursorExtension,FontSizeExtension,HeadingExtension,LinkExtension,} from 'remirror/extensions';
 import { 
   EditorComponent,
   ThemeProvider,
@@ -10,7 +10,8 @@ import {
   useRemirror,
   useCommands,
   useHelpers, 
-  useKeymap,Toolbar,
+  useKeymap,
+  Toolbar,
   ToggleItalicButton, 
   ToggleBoldButton,
   CommandButtonGroup,
@@ -18,7 +19,9 @@ import {
   DecreaseFontSizeButton,
   DropdownButton,
   IncreaseFontSizeButton,
-  HeadingLevelButtonGroup 
+  HeadingLevelButtonGroup,
+  UndoButton,
+  RedoButton
   } from '@remirror/react';
 
 
@@ -29,6 +32,7 @@ new HeadingExtension(),
 new ImageExtension({ enableResizing: true }),
 new DropCursorExtension(),
 new FontSizeExtension({ defaultSize: '16', unit: 'px' }),
+new LinkExtension({ autoLink: true })
 ];
 
 const FONT_SIZES = ['8', '10', '12', '14', '16', '18', '24', '30'];
@@ -126,7 +130,9 @@ export const Editor=() =>{
         onChange={onChange}
       >
         <Toolbar>
-        <CommandButtonGroup>
+          <UndoButton/>
+          <RedoButton/>
+          <CommandButtonGroup>
             <DecreaseFontSizeButton />
             <FontSizeButtons />
             <IncreaseFontSizeButton />
@@ -134,8 +140,6 @@ export const Editor=() =>{
           <ToggleItalicButton />
           <ToggleBoldButton/>
           <HeadingLevelButtonGroup showAll />
-
-          
         </Toolbar>
         <EditorComponent/>
       </Remirror>
