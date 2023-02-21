@@ -1,22 +1,38 @@
 
 import 'remirror/styles/all.css';
-import { useContext, useCallback  } from 'react';
-import { BoldExtension, CalloutExtension, ItalicExtension,ImageExtension,DropCursorExtension,FontSizeExtension } from 'remirror/extensions';
-import { EditorComponent,ThemeProvider,useChainedCommands,
-   useActive, Remirror, useRemirror,useCommands,
-   useHelpers, useKeymap,Toolbar,
-   ToggleItalicButton, ToggleBoldButton,CommandButtonGroup,
-   CommandMenuItem,
-   DecreaseFontSizeButton,
-   DropdownButton,
-   IncreaseFontSizeButton, } from '@remirror/react';
+import { useCallback  } from 'react';
+import { BoldExtension, ItalicExtension,ImageExtension,DropCursorExtension,FontSizeExtension,HeadingExtension } from 'remirror/extensions';
+import { 
+  EditorComponent,
+  ThemeProvider,
+  useActive, 
+  Remirror, 
+  useRemirror,
+  useCommands,
+  useHelpers, 
+  useKeymap,Toolbar,
+  ToggleItalicButton, 
+  ToggleBoldButton,
+  CommandButtonGroup,
+  CommandMenuItem,
+  DecreaseFontSizeButton,
+  DropdownButton,
+  IncreaseFontSizeButton,
+  HeadingLevelButtonGroup 
+  } from '@remirror/react';
 
 
-const extensions = () => [new BoldExtension(),
-  new ItalicExtension(),new ImageExtension(),
+const extensions = () => [
+new BoldExtension(),
+new ItalicExtension(),
+new HeadingExtension(),
 new ImageExtension({ enableResizing: true }),
-new DropCursorExtension(),new FontSizeExtension({ defaultSize: '16', unit: 'px' })];
+new DropCursorExtension(),
+new FontSizeExtension({ defaultSize: '16', unit: 'px' }),
+];
+
 const FONT_SIZES = ['8', '10', '12', '14', '16', '18', '24', '30'];
+//Used for handeling Font size Buttons
 const FontSizeButtons = () => {
   const { setFontSize } = useCommands();
   const { fontSize } = useActive();
@@ -37,6 +53,7 @@ const FontSizeButtons = () => {
     </DropdownButton>
   );
 };
+//used for saving to .JSON
 const hooks = [
   () => {
     const { getJSON } = useHelpers();
@@ -55,35 +72,6 @@ const hooks = [
   },
 ];
 
-// For custom menu items(currently not in use)
-// export const Menu = () => {
-//   const { toggleBold,toggleItalics, focus } = useCommands();
-//   const active = useActive();
-//   const chain = useChainedCommands();
-
-//   return (
-//     <div>
-//     <button
-//       onClick={() => {
-//         chain // Begin a chain
-//           .toggleBold()
-//           .focus()
-//           .run(); // A chain must always be terminated with `.run()`
-//         }}style={{ fontWeight: active.bold() ? 'bold' : undefined }}
-//         disabled={toggleBold.enabled() === false}> B
-//     </button>
-//     <button
-//       onClick={() => {
-//         chain // Begin a chain
-//           .toggleItalics()
-//           .focus()
-//           .run(); // A chain must always be terminated with `.run()`
-//         }}style={{ fontWeight: active.bold() ? 'bold' : undefined }}
-//         disabled={toggleBold.enabled() === false}> I
-//     </button>
-//     </div>
-//   );
-// };
 
 export const Editor=() =>{
   const imageSrc = 'https://dummyimage.com/2000x800/479e0c/fafafa';
@@ -145,6 +133,8 @@ export const Editor=() =>{
           </CommandButtonGroup>
           <ToggleItalicButton />
           <ToggleBoldButton/>
+          <HeadingLevelButtonGroup showAll />
+
           
         </Toolbar>
         <EditorComponent/>
