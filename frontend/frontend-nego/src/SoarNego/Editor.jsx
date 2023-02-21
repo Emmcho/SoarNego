@@ -1,17 +1,17 @@
 
-import { useContext, useCallback  } from 'react';
-import FileContext from './providers/FileExporerContext';
-import { BoldExtension, CalloutExtension, ItalicExtension } from 'remirror/extensions';
-import { EditorComponent,ThemeProvider,useChainedCommands,
-  useActive, Remirror, useRemirror,useCommands,
-   useHelpers, useKeymap,Toolbar,
-   ToggleItalicButton, ToggleBoldButton, ToggleCalloutMenuItem
-  } from '@remirror/react';
 import 'remirror/styles/all.css';
+import { useContext, useCallback  } from 'react';
+import { BoldExtension, CalloutExtension, ItalicExtension,ImageExtension,DropCursorExtension} from 'remirror/extensions';
+import { EditorComponent,ThemeProvider,useChainedCommands,
+   useActive, Remirror, useRemirror,useCommands,
+   useHelpers, useKeymap,Toolbar,
+   ToggleItalicButton, ToggleBoldButton } from '@remirror/react';
 
 
 const extensions = () => [new BoldExtension(),
-  new ItalicExtension()];
+  new ItalicExtension(),new ImageExtension(),
+new ImageExtension({ enableResizing: true }),
+new DropCursorExtension()];
 
 const hooks = [
   () => {
@@ -62,21 +62,46 @@ const hooks = [
 // };
 
 export const Editor=() =>{
-      const { manager, state } = useRemirror({
-          extensions: extensions,
-        
-          // Set the initial content.
-          content: '<p>I love <b>Remirror</b></p>',
-        
-          // Place the cursor at the start of the document. This can also be set to
-          // `end`, `all` or a numbered position.
-          selection: 'start',
-        
-          // Set the string handler which means the content provided will be
-          // automatically handled as html.
-          // `markdown` is also available when the `MarkdownExtension`
-          // is added to the editor.
-          stringHandler: 'html',
+  const imageSrc = 'https://dummyimage.com/2000x800/479e0c/fafafa';
+
+      const { manager, state,onChange} = useRemirror({
+          extensions,
+          content: {
+            type: 'doc',
+            content: [
+              {
+                type: 'paragraph',
+                content: [
+                  {
+                    type: 'image',
+                    attrs: {
+                      height: 160,
+                      width: 400,
+                      src: imageSrc,
+                    },
+                  },
+                ],
+              },
+              {
+                type: 'paragraph',
+                content: [
+                  {
+                    type: 'text',
+                    text: 'You can see a resizable image above. Move your mouse over the image and drag the resizing handler to resize it.',
+                  },
+                ],
+              },
+              {
+                type: 'paragraph',
+                content: [
+                  {
+                    type: 'text',
+                    text: 'Drag and drop an image file to editor to insert it.',
+                  },
+                ],
+              },
+            ],
+          },
         });
         
     
@@ -86,15 +111,17 @@ export const Editor=() =>{
         manager={manager} 
         initialContent={state} 
         hooks={hooks}
+        onChange={onChange}
       >
         <Toolbar>
           <ToggleItalicButton />
           <ToggleBoldButton/>
+          
         </Toolbar>
         <EditorComponent/>
       </Remirror>
     </ThemeProvider>
   );
 
-}
-export default Editor
+};
+export default Editor;
