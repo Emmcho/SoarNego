@@ -2,8 +2,16 @@
 import { useContext, useCallback  } from 'react';
 import FileContext from './providers/FileExporerContext';
 import { BoldExtension, CalloutExtension, ItalicExtension } from 'remirror/extensions';
-import { EditorComponent,useChainedCommands,useActive, Remirror, useRemirror,useCommands, useHelpers, useKeymap} from '@remirror/react';
+import { EditorComponent,ThemeProvider,useChainedCommands,
+  useActive, Remirror, useRemirror,useCommands,
+   useHelpers, useKeymap,Toolbar,
+   ToggleItalicButton, ToggleBoldButton, ToggleCalloutMenuItem
+  } from '@remirror/react';
 import 'remirror/styles/all.css';
+
+
+const extensions = () => [new BoldExtension(),
+  new ItalicExtension()];
 
 const hooks = [
   () => {
@@ -23,30 +31,39 @@ const hooks = [
   },
 ];
 
-export const Menu = () => {
-  const { toggleBold, focus } = useCommands();
-  const active = useActive();
-  const chain = useChainedCommands();
+// For custom menu items(currently not in use)
+// export const Menu = () => {
+//   const { toggleBold,toggleItalics, focus } = useCommands();
+//   const active = useActive();
+//   const chain = useChainedCommands();
 
-  return (
-    <button
-      onClick={() => {
-        chain // Begin a chain
-          .toggleBold()
-          .focus()
-          .run(); // A chain must always be terminated with `.run()`
-        }}style={{ fontWeight: active.bold() ? 'bold' : undefined }}
-        disabled={toggleBold.enabled() === false}> B
-    </button>
-  );
-};
+//   return (
+//     <div>
+//     <button
+//       onClick={() => {
+//         chain // Begin a chain
+//           .toggleBold()
+//           .focus()
+//           .run(); // A chain must always be terminated with `.run()`
+//         }}style={{ fontWeight: active.bold() ? 'bold' : undefined }}
+//         disabled={toggleBold.enabled() === false}> B
+//     </button>
+//     <button
+//       onClick={() => {
+//         chain // Begin a chain
+//           .toggleItalics()
+//           .focus()
+//           .run(); // A chain must always be terminated with `.run()`
+//         }}style={{ fontWeight: active.bold() ? 'bold' : undefined }}
+//         disabled={toggleBold.enabled() === false}> I
+//     </button>
+//     </div>
+//   );
+// };
 
 export const Editor=() =>{
       const { manager, state } = useRemirror({
-          extensions: () => [
-            new BoldExtension(),
-            new ItalicExtension(),
-          ],
+          extensions: extensions,
         
           // Set the initial content.
           content: '<p>I love <b>Remirror</b></p>',
@@ -64,13 +81,19 @@ export const Editor=() =>{
         
     
   return (
-    <div className='remirror-theme'>
-      <Remirror manager={manager} initialContent={state} hooks={hooks} >
-        {/* The text editor is placed above the menu to make the zIndex easier to manage for popups */}
-        <EditorComponent />
-        <Menu />
+    <ThemeProvider>
+      <Remirror 
+        manager={manager} 
+        initialContent={state} 
+        hooks={hooks}
+      >
+        <Toolbar>
+          <ToggleItalicButton />
+          <ToggleBoldButton/>
+        </Toolbar>
+        <EditorComponent/>
       </Remirror>
-    </div>
+    </ThemeProvider>
   );
 
 }
