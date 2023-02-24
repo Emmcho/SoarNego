@@ -39,6 +39,7 @@ export function FileContextProvider({children}){
         const transaction = editorCotentUpdate.state.tr.insert(0, editorCotentUpdate.state.schema.text(editorContent ))
         const newState = editorCotentUpdate.state.apply(transaction);
         editorCotentUpdate.updateState(newState);
+        
     }
 
     return(

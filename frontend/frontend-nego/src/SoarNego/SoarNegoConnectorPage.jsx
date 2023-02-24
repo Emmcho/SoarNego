@@ -8,6 +8,7 @@ import LogoutComponent from './LogoutComponent';
 import HeaderComponent from './HeaderComponent';
 import FooterComponent from './FooterComponent';
 import ErrorComponent from './ErrorComponent';
+import SignInDetails from './SignIn';
 import Layout from './Layout';
 import { UserProvider } from './providers/UserProvider';
 import { FileContextProvider } from './providers/FileExporerContext';
@@ -33,7 +34,7 @@ function SoarNegoConnectorPage () {
                             <Router>
                                 
 
-                                    
+                                  
                                     <Routes>
                                         
                                         {/* <Route path="/" element={<Layout />}> */}
@@ -49,6 +50,7 @@ function SoarNegoConnectorPage () {
                                                     {/* <Route path="/soarnego" element={<SoarNegoAppPage/>} /> */}
 
                                                     <Route path="login" element={<LoginPage/>} />
+                                                    <Route path="singIn" element={<SignInDetails/>} />
                                                     <Route path="logout" element={<LogoutComponent/>} />
                                                     <Route path="*"  element = {<ErrorComponent/>} />
                                                     

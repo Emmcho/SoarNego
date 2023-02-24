@@ -18,7 +18,7 @@ function PromiseEditor(){
             marks: schema.spec.marks
         })
 
-        window.view = new EditorView(document.querySelector("#editor"), {
+        const view = new EditorView(document.querySelector("#editor"), {
             state: EditorState.create({
                 doc: DOMParser.fromSchema(mySchema).parse(document.querySelector("#content")),
                 plugins: exampleSetup({schema: mySchema})
@@ -26,14 +26,18 @@ function PromiseEditor(){
             })
         })
 
-        const modView = window.view
+        //modView is a variable sent to  UpdateProseMirrorEditorContent context API method to update the editor
+        const modView = view 
         UpdateProseMirrorEditorContent(modView)
 
         // const transaction = modView.state.tr.insert(0, modView.state.schema.text("Hello World!"))
         // const newState = modView.state.apply(transaction);
         // modView.updateState(newState);
 
-        
+        return () => {
+            view.destroy()
+        }   
+
     });
 
   return (

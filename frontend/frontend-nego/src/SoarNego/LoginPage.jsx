@@ -6,6 +6,7 @@ import AuthenticationService from './AuthenticationService.js';
 import { useNavigate } from "react-router-dom";
 import { useUserContext } from './providers/UserProvider.jsx';
 import HeaderComponent from "./HeaderComponent";
+import { Link } from 'react-router-dom';
 
 
 function LoginPage (){
@@ -63,6 +64,13 @@ function LoginPage (){
                                         <Field className="form-control" type="password" name="password" ></Field>
                                     </fieldset>
                                     <button className="btn btn-success" type='submit'>Login</button>
+                                    <div>
+                                        
+                                        <Link to='/singIn'>Sign in</Link>
+
+                                    </div>
+                                    
+
 
 
                                 </Form>
