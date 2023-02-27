@@ -9,13 +9,10 @@ import Split from 'react-split';
 
 import BasicExample from './RightPane';
 import BasicExample1 from './RightPane';
-import Editor from './QuillEditor';
 import Features from './FeaturesBar';
 import Explorer from './FileExplorerPane';
-import PromiseEditor from './PromiseMirrorEditor';
 import HeaderComponent from './HeaderComponent';
-
-
+import Editor from './Editor';
 
 function SoarNegoAppPage () {
   
@@ -30,9 +27,9 @@ function SoarNegoAppPage () {
                 {/* This is component to display working file directory */}
                 <div > <Explorer/></div>
                 {/* Text editor Component */}
-                 {/* Quill component commented below */}
-                {/* <div> <Editor/> </div> */}
-                <div>  <PromiseEditor/></div>
+      
+               <Editor></Editor>
+
                 {/* Right side pane, meant for display of text processing from the text editor central pane  */}
                 <div>  <BasicExample/>
                        <BasicExample1/>
