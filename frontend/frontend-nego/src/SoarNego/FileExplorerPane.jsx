@@ -14,6 +14,8 @@ function Explorer(){
 
     const {fileItems, sendToEditorContentLoader } = useContext(FileContext)
     const {addToFileList, addFileToSessionStorage} = useContext(FileContext)
+    const {editorContent} = useContext(FileContext)
+
     
     //Future enhancement is to be able to read multiple files at a time
     
@@ -47,7 +49,7 @@ function Explorer(){
   });
     
     const handleClick = (event) => {
-        //Initialize to '' so that when same file is clicked, OnChange will capture the event a a chenge of file selection
+        //Initialize to '' so that when same file is clicked, OnChange will capture the event and chenge of file selection
         event.target.value = ''
     }
   
@@ -60,41 +62,64 @@ function Explorer(){
     const handleFileClick = (state, event)=>{
         //sending the file content to a context function API that saves it in the session storage 
         sendToEditorContentLoader(state.nodeData.fileIndex)
+        console.log("Content sent to loader", state.nodeData.fileIndex)
         
 
     }
 
         const handleFileChosen = (file) => {
-        
-       
-
             fileReader = new FileReader();
-            fileReader.onloadend = handleFileRead;
+
+            const fileName = file.name
+
+            const onLoaded = () => {
+                const fileContent = fileReader.result
+
+                const fileData = {
+                    fileId: 1,
+                    fileName,
+                    fileContent
+                } 
+                if (!fileData.fileName || !fileData.fileContent) return
+                console.log(fileData)
+                axios.post('http://localhost:8080/api/save/files',fileData)
+                .then(function (response){
+                    console.log(response)
+                    addToFileList(response.data.fileName, 0,true,response.data.fileName+response.data.fileId)
+                    addFileToSessionStorage(response.data.fileName+response.data.fileId, response.data.fileContent)
+                })
+                
+                .catch(function(error){
+                console.log(error)
+                })   
+            }
+            
+            fileReader.onloadend = onLoaded;
             fileReader.readAsText(file)
             
 
-            setSelFileName(file.name)
+            // setSelFileName(file.name)
         
-            const fileData = {
-                fileId: 1,
-                fileName:file.name,
-                fileContent: content
-            } 
-            if (fileData.fileName !== "" && fileData.fileContent!== "")
-            { console.log(fileData)
-                    axios.post('http://localhost:8080/api/save/files',fileData)
-                    .then(function (response){
-                        console.log(response)
-                        addToFileList(response.data.fileName, 0,true,response.data.fileName+response.data.fileId)
-                        addFileToSessionStorage(response.data.fileName+response.data.fileId, response.data.fileContent)
-                    })
+            // const fileData = {
+            //     fileId: 1,
+            //     fileName:file.name,
+            //     fileContent: content
+            // } 
+            // if (fileData.fileName !== "" && fileData.fileContent!== "")
+            // { console.log(fileData)
+            //         axios.post('http://localhost:8080/api/save/files',fileData)
+            //         .then(function (response){
+            //             console.log(response)
+            //             addToFileList(response.data.fileName, 0,true,response.data.fileName+response.data.fileId)
+            //             addFileToSessionStorage(response.data.fileName+response.data.fileId, response.data.fileContent)
+            //         })
                     
-                    .catch(function(error){
-                    console.log(error)
-                    })
+            //         .catch(function(error){
+            //         console.log(error)
+            //         })
                     
 
-                }
+            //     }
         
         }
 

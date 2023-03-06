@@ -1,6 +1,6 @@
 
 import 'remirror/styles/all.css';
-import { useCallback  } from 'react';
+import { useCallback,forwardRef, Ref, useImperativeHandle, useRef, useState, useEffect  } from 'react';
 import { BoldExtension, ItalicExtension,ImageExtension,DropCursorExtension,FontSizeExtension,HeadingExtension,LinkExtension,} from 'remirror/extensions';
 import { 
   EditorComponent,
@@ -21,8 +21,11 @@ import {
   IncreaseFontSizeButton,
   HeadingLevelButtonGroup,
   UndoButton,
-  RedoButton
+  RedoButton,
+  useRemirrorContext
   } from '@remirror/react';
+  import FileContext from "./providers/FileExporerContext";
+  import { useContext } from "react";
 
 
 const extensions = () => [
@@ -71,80 +74,144 @@ const hooks = [
       [getJSON],
     );
 
+      //replace editor's content
+      
+
+    
+
     // "Mod" means platform agnostic modifier key - i.e. Ctrl on Windows, or Cmd on MacOS
     useKeymap('Mod-s', handleSaveShortcut);
+    //useKeymap('Mod-R', handleClick);
+
+   // const { getRootProps, view } = useRemirror();
+    //view.dispatch(view.state.tr.insertText('a'))
   },
+
+  
 ];
 
 
-export const Editor=() =>{
-  const imageSrc = 'https://dummyimage.com/2000x800/479e0c/fafafa';
 
-      const { manager, state,onChange} = useRemirror({
-          extensions,
-          content: {
-            type: 'doc',
-            content: [
-              {
-                type: 'paragraph',
-                content: [
-                  {
-                    type: 'image',
-                    attrs: {
-                      height: 160,
-                      width: 400,
-                      src: imageSrc,
-                    },
-                  },
-                ],
-              },
-              {
-                type: 'paragraph',
-                content: [
-                  {
-                    type: 'text',
-                    text: 'You can see a resizable image above. Move your mouse over the image and drag the resizing handler to resize it.',
-                  },
-                ],
-              },
-              {
-                type: 'paragraph',
-                content: [
-                  {
-                    type: 'text',
-                    text: 'Drag and drop an image file to editor to insert it.',
-                  },
-                ],
-              },
-            ],
-          },
-        });
-        
+
+
+  
+// export interface EditorRef {
+//   setContent: (content: any) => void;
+// }
+
+// const ImperativeHandle = forwardRef((_: unknown, ref: Ref<EditorRef>) => {
+//   const { setContent } = useRemirrorContext({
+//     autoUpdate: true,
+//   });
+
+//   // Expose content handling to outside
+//   useImperativeHandle(ref, () => ({ setContent }));
+
+//   return <></>;
+// });
+
+  export const getEditorObject = (text) => {
+    return {
+      type: 'doc',
+      content: [
+
+        {
+          type: 'paragraph',
+          content: [
+            {
+              type: 'text',
+              text,
+            },
+          ],
+        }
+      ],
+    }
+  }
+
+  export const Editor=() =>{
+    const {editorContent, currentFile} = useContext(FileContext)
+
+    const [file, setFile] = useState(currentFile)
+
+    // const DOC = {
     
-  return (
-    <ThemeProvider>
-      <Remirror 
-        manager={manager} 
-        initialContent={state} 
-        hooks={hooks}
-        onChange={onChange}
-      >
-        <Toolbar>
-          <UndoButton/>
-          <RedoButton/>
-          <CommandButtonGroup>
-            <DecreaseFontSizeButton />
-            <FontSizeButtons />
-            <IncreaseFontSizeButton />
-          </CommandButtonGroup>
-          <ToggleItalicButton />
-          <ToggleBoldButton/>
-          <HeadingLevelButtonGroup showAll />
-        </Toolbar>
-        <EditorComponent/>
-      </Remirror>
-    </ThemeProvider>
-  );
+    //   type: 'doc',
+    //   content: [
+    //     {
+    //       type: 'paragraph',
+    //       content: [
+    //         {
+    //           type: 'text',
+    //           text:editorContent,
+    //         },
+    //       ],
+    //     },
+    //   ],
+    // };
 
-};
+    // const editorRef = useRef<EditorRef | null>(null);
+
+            const { manager, state,onChange} = useRemirror({
+                extensions,
+                content: editorContent
+              });
+              
+
+        const handleClick = useCallback(() => {
+          // Clear out old state when setting data from outside
+          // This prevents e.g. the user from using CTRL-Z to go back to the old state
+          manager.view.updateState(manager.createState({ content: editorContent}));
+        }, [manager]);
+
+
+      useEffect(() => {
+        console.log(file, currentFile)
+        if (file !== currentFile) {
+          manager.view.updateState(manager.createState({ content: editorContent}));
+          setFile(currentFile)
+
+        }
+
+      }, [currentFile, file])
+
+  
+      return (
+        <>
+            {/* <button
+            onMouseDown={(event) => event.preventDefault()}
+            onClick={() => editorRef.current.setContent(editorContent)}
+            >
+            Replace content
+          </button> */}
+       
+        <ThemeProvider>
+          <Remirror 
+            manager={manager} 
+            state={state} 
+            hooks={hooks}
+            onChange={onChange}
+            // onDispatchTransaction={UpdateRemirrorEditorContent}
+          >
+            {/* <button onMouseDown={(event) => event.preventDefault()} onClick={handleClick}>
+              Upload selected File content
+            </button> */}
+            <Toolbar>
+              <UndoButton/>
+              <RedoButton/>
+              <CommandButtonGroup>
+                <DecreaseFontSizeButton />
+                <FontSizeButtons />
+                <IncreaseFontSizeButton />
+              </CommandButtonGroup>
+              <ToggleItalicButton />
+              <ToggleBoldButton/>
+              <HeadingLevelButtonGroup showAll />
+            </Toolbar>
+            <EditorComponent/>
+          </Remirror>
+        </ThemeProvider>
+        </>
+      );
+
+  };
 export default Editor;
