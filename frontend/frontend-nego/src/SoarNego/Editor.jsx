@@ -74,41 +74,14 @@ const hooks = [
       [getJSON],
     );
 
-      //replace editor's content
-      
-
-    
-
+     
     // "Mod" means platform agnostic modifier key - i.e. Ctrl on Windows, or Cmd on MacOS
     useKeymap('Mod-s', handleSaveShortcut);
-    //useKeymap('Mod-R', handleClick);
-
-   // const { getRootProps, view } = useRemirror();
-    //view.dispatch(view.state.tr.insertText('a'))
   },
 
   
 ];
 
-
-
-
-
-  
-// export interface EditorRef {
-//   setContent: (content: any) => void;
-// }
-
-// const ImperativeHandle = forwardRef((_: unknown, ref: Ref<EditorRef>) => {
-//   const { setContent } = useRemirrorContext({
-//     autoUpdate: true,
-//   });
-
-//   // Expose content handling to outside
-//   useImperativeHandle(ref, () => ({ setContent }));
-
-//   return <></>;
-// });
 
   export const getEditorObject = (text) => {
     return {
@@ -132,25 +105,6 @@ const hooks = [
     const {editorContent, currentFile} = useContext(FileContext)
 
     const [file, setFile] = useState(currentFile)
-
-    // const DOC = {
-    
-    //   type: 'doc',
-    //   content: [
-    //     {
-    //       type: 'paragraph',
-    //       content: [
-    //         {
-    //           type: 'text',
-    //           text:editorContent,
-    //         },
-    //       ],
-    //     },
-    //   ],
-    // };
-
-    // const editorRef = useRef<EditorRef | null>(null);
-
             const { manager, state,onChange} = useRemirror({
                 extensions,
                 content: editorContent
@@ -165,7 +119,6 @@ const hooks = [
 
 
       useEffect(() => {
-        console.log(file, currentFile)
         if (file !== currentFile) {
           manager.view.updateState(manager.createState({ content: editorContent}));
           setFile(currentFile)
@@ -177,24 +130,14 @@ const hooks = [
   
       return (
         <>
-            {/* <button
-            onMouseDown={(event) => event.preventDefault()}
-            onClick={() => editorRef.current.setContent(editorContent)}
-            >
-            Replace content
-          </button> */}
-       
+        
         <ThemeProvider>
           <Remirror 
             manager={manager} 
             state={state} 
             hooks={hooks}
             onChange={onChange}
-            // onDispatchTransaction={UpdateRemirrorEditorContent}
           >
-            {/* <button onMouseDown={(event) => event.preventDefault()} onClick={handleClick}>
-              Upload selected File content
-            </button> */}
             <Toolbar>
               <UndoButton/>
               <RedoButton/>

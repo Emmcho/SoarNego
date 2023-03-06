@@ -31,7 +31,6 @@ export function FileContextProvider({children}){
                 checked: 0,
                 isOpen: true, // this folder is opened, we can see it's children
                 children: [
-                  
                 ]
               }
     )
@@ -49,49 +48,15 @@ export function FileContextProvider({children}){
 
      //Retrieves file content from the session storage
     const sendToEditorContentLoader = (editorContentFromFileClick)=>{
-        
-        // console.log(editorContentFromFileClick)
-
-        // console.log(sessionStorage.getItem(editorContentFromFileClick))
-
         const fileContent = sessionStorage.getItem(editorContentFromFileClick)
-
-        // console.log(fileContent)
-
         const newEditorContent = getEditorObject(fileContent)
-        
         setEditorContent(newEditorContent)
         setCurrentFile(editorContentFromFileClick)
-
     }
 
-    //Updates ProseMirror editor's content- not in use anymore
-    const UpdateProseMirrorEditorContent = (editorCotentUpdate) =>{
-        //let editorText = "This  is the content"
-        const transaction = editorCotentUpdate.state.tr.insert(0, editorCotentUpdate.state.schema.text(editorContent ))
-        const newState = editorCotentUpdate.state.apply(transaction);
-        editorCotentUpdate.updateState(newState);
-        
-    }
-
-    // const RemirrorContent = UpdateRemirrorEditorContenT (manager)
-
-    //     //let editorText = "This  is the content"
-    // const handleClick = useCallback(() => {
-    //         // Clear out old state when setting data from outside
-    //         // This prevents e.g. the user from using CTRL-Z to go back to the old state
-    //         manager.view.updateState(manager.createState({ content: DOC }));
-    // }, [manager]);
-    
-        
-    console.log(editorContent)
-    
-
-
-        
-
+   
     return(
-        <FileContext.Provider value = {{fileItems,addToFileList, addFileToSessionStorage, sendToEditorContentLoader,UpdateProseMirrorEditorContent, editorContent, currentFile }}>
+        <FileContext.Provider value = {{fileItems,addToFileList, addFileToSessionStorage, sendToEditorContentLoader, editorContent, currentFile }}>
             {children}
         </FileContext.Provider>
 
