@@ -6,7 +6,8 @@ class AuthenticationService {
 
     logout() {
         console.log('Logout called')
-        sessionStorage.removeItem('authenticatedUser');
+        //sessionStorage.removeItem('authenticatedUser');
+        sessionStorage.clear()
         window.location.reload();
     }
 
