@@ -1,86 +1,78 @@
 package com.bankend.restfulwebservices10.soarnego.model;
 
+import java.util.Collection;
+import java.util.List;
+
 import javax.persistence.*;
 
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
+import com.bankend.restfulwebservices10.soarnego.token.Token;
+
+
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(name = "userTable")
-public class NewUserEntity {
+public class NewUserEntity implements UserDetails{
 	
-	protected NewUserEntity() {
-		
-	}
+	  @Id
+	  @GeneratedValue
+	  private Integer id;
+	  private String firstname;
+	  private String lastname;
+	  private String email;
+	  private String password;
+
+	  @Enumerated(EnumType.STRING)
+	  private Role role;
+
+	  @OneToMany(mappedBy = "user")
+	  private List<Token> tokens;
+
 	
-	public NewUserEntity( String userFullName, String userName, String email, String password) {
-		super();
-		
-		this.userFullName = userFullName;
-		this.userName = userName;
-		this.email = email;
-		this.password = password;
-	}
+	  public Collection<? extends GrantedAuthority> getAuthorities() {
+	    return List.of(new SimpleGrantedAuthority(role.name()));
+	  }
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Long userId;
+	  
+	  public String getPassword() {
+	    return password;
+	  }
+
+	 
+	  public String getUsername() {
+	    return email;
+	  }
+
+	 
+	  public boolean isAccountNonExpired() {
+	    return true;
+	  }
+
 	
-	@Column(name = "fullName")
-	private String userFullName;
-	
-	@Column
-	private String userName;
-	
-	@Column
-	private String email;
-	
-	@Column
-	private String password;
+	  public boolean isAccountNonLocked() {
+	    return true;
+	  }
 
-	public Long getUserId() {
-		return userId;
-	}
+	 
+	  public boolean isCredentialsNonExpired() {
+	    return true;
+	  }
 
-	public void setUserId(Long userId) {
-		this.userId = userId;
-	}
-
-	public String getUserFullName() {
-		return userFullName;
-	}
-
-	public void setUserFullName(String userFullName) {
-		this.userFullName = userFullName;
-	}
-
-	public String getUserName() {
-		return userName;
-	}
-
-	public void setUserName(String userName) {
-		this.userName = userName;
-	}
-
-	public String getEmail() {
-		return email;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
-	}
-
-	public String getPassword() {
-		return password;
-	}
-
-	public void setPassword(String password) {
-		this.password = password;
-	}
-
-	@Override
-	public String toString() {
-		return "NewUserEntity [userId=" + userId + ", userFullName=" + userFullName + ", userName=" + userName
-				+ ", email=" + email + ", password=" + password + "]";
-	}
-	
+	 
+	  public boolean isEnabled() {
+	    return true;
+	  }
 	
 	
 

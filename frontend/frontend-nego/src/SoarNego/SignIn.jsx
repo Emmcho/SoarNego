@@ -1,17 +1,24 @@
-import React from "react";
+import React, {useState} from "react";
 import { Formik, Field,Form, ErrorMessage } from "formik";
 import * as Yup from 'yup'
+import AuthenticationService from "./AuthenticationService.js";
+import { useNavigate } from "react-router-dom";
+import HeaderComponent from "./HeaderComponent.jsx";
 
 
 
 function SignInDetails () {
+  const navigate = useNavigate();
+  const [hasLoginFailed, sethasLoginFailed] = useState(false)
+  const [showSuccessMessage, setshowSuccessMessage] = useState(false)
+
      function validationSchema() {
         return Yup.object().shape({
-          fullname: Yup.string().required('Fullname is required'),
-          username: Yup.string()
-            .required('Username is required')
-            .min(6, 'Username must be at least 6 characters')
-            .max(20, 'Username must not exceed 20 characters'),
+          firstname: Yup.string().required('firstname is required'),
+          lastname: Yup.string()
+            .required('lastname is required')
+            .min(6, 'lastname must be at least 6 characters')
+            .max(20, 'lastname must not exceed 20 characters'),
           email: Yup.string()
             .required('Email is required')
             .email('Email is invalid'),
@@ -28,13 +35,39 @@ function SignInDetails () {
 
       function handleSubmit(data) {
         console.log(JSON.stringify(data, null, 2));
+        //console.log(data.firstname, data.lastname,data.email,data.password)
+
+        
+        // //firstname,lastname, email,password
+
+        AuthenticationService
+        . executeJwtReegisterService(data.firstname, data.lastname, data.email, data.password)
+        .then((response) => {
+            //AuthenticationService.registerSuccessfulLoginForJwt(data.firstname,response.data.token)
+            //TODO: consider sending param with the link 
+            //this.props.history.push(`/welcome/${this.state.username}`)
+            navigate(`/login`)
+        }).catch( () =>{
+            //TODO: Set below as necessary
+            setshowSuccessMessage(false)
+            sethasLoginFailed(true)
+            console.log("Registration failed")
+        })
+
       }
 
     return(
+      <div>
+
+      <HeaderComponent />
+      
+      {hasLoginFailed && <div className="alert alert-warning">Invalid Credentials</div>}
+      {showSuccessMessage && <div>Sucessful Registration</div>}
+      
         <Formik
             initialValues = {{
-                fullname:'',
-                username: '',
+                firstname:'',
+                lastname: '',
                 email: '',
                 password: '',
                 confirmPassword: '',
@@ -47,34 +80,34 @@ function SignInDetails () {
             <div className="container" >
             <Form>
               <div className="form-group">
-                <label>Full Name</label>
+                <label>First Name</label>
                 <Field
-                  name="fullname"
+                  name="firstname"
                   type="text"
                   className={
                     'form-control' +
-                    (errors.fullname && touched.fullname ? ' is-invalid' : '')
+                    (errors.firstname && touched.firstname ? ' is-invalid' : '')
                   }
                 />
                 <ErrorMessage
-                  name="fullname"
+                  name="firstname"
                   component="div"
                   className="invalid-feedback"
                 />
               </div>
 
               <div className="form-group">
-                <label htmlFor="username"> Username </label>
+                <label htmlFor="lastname"> lastname </label>
                 <Field
-                  name="username"
+                  name="lastname"
                   type="text"
                   className={
                     'form-control' +
-                    (errors.username && touched.username ? ' is-invalid' : '')
+                    (errors.lastname && touched.lastname ? ' is-invalid' : '')
                   }
                 />
                 <ErrorMessage
-                  name="username"
+                  name="lastname"
                   component="div"
                   className="invalid-feedback"
                 />
@@ -175,7 +208,7 @@ function SignInDetails () {
        
         </Formik>
 
-        
+        </div> 
     )
 }
 
