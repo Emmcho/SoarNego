@@ -66,7 +66,13 @@ function Explorer(){
                     fileId: 1,
                     fileName,
                     fileContent
-                } 
+                }
+                const parsedJSON = JSON.parse(fileContent)
+                const parts = parsedJSON.Part
+                parts.forEach(part => {
+                    console.log(part)
+                });
+                console.log(parsedJSON)
                 if (!fileData.fileName || !fileData.fileContent) return
                 axios.post('http://localhost:8080/api/save/files',fileData)
                 .then(function (response){
@@ -90,7 +96,7 @@ function Explorer(){
 
                         <div>
                             <label>Load a File</label>
-                            <input type="file" onChange={e => handleFileChosen(e.target.files[0])}  onClick = {handleClick } name="fileLoader" id="myFile" accept=".txt" ></input>
+                            <input type="file" onChange={e => handleFileChosen(e.target.files[0])}  onClick = {handleClick } name="fileLoader" id="myFile" accept=".json" ></input>
                             
 
                         </div>

@@ -1,18 +1,21 @@
 
 import 'remirror/styles/all.css';
-import { useCallback,forwardRef, Ref, useImperativeHandle, useRef, useState, useEffect  } from 'react';
-import { BoldExtension, ItalicExtension,ImageExtension,DropCursorExtension,FontSizeExtension,HeadingExtension,LinkExtension,} from 'remirror/extensions';
-import { 
+import { useCallback, forwardRef, Ref, useImperativeHandle, useRef, useState, useEffect } from 'react';
+import {
+  BoldExtension, ItalicExtension, ImageExtension, DropCursorExtension, FontSizeExtension, HeadingExtension, LinkExtension, NodeFormattingExtension,
+  BulletListExtension, OrderedListExtension, wrapSelectedItems,TaskListExtension
+} from 'remirror/extensions';
+import {
   EditorComponent,
   ThemeProvider,
-  useActive, 
-  Remirror, 
+  useActive,
+  Remirror,
   useRemirror,
   useCommands,
-  useHelpers, 
+  useHelpers,
   useKeymap,
   Toolbar,
-  ToggleItalicButton, 
+  ToggleItalicButton,
   ToggleBoldButton,
   CommandButtonGroup,
   CommandMenuItem,
@@ -22,20 +25,33 @@ import {
   HeadingLevelButtonGroup,
   UndoButton,
   RedoButton,
-  useRemirrorContext
-  } from '@remirror/react';
-  import FileContext from "./providers/FileExporerContext";
-  import { useContext } from "react";
+  useRemirrorContext,
+  TextAlignmentButtonGroup,
+  ListButtonGroup
+  
+} from '@remirror/react';
 
+
+import FileContext from "./providers/FileExporerContext";
+import { useContext } from "react";
+import contract from "../dataFile1/modcontract.json"
+import example from "../dataFile1/example.json"
+import {ToggleListItemExtension} from "./remirrorCustomExtensions/ToggleListItemExtension.jsx"
 
 const extensions = () => [
-new BoldExtension(),
-new ItalicExtension(),
-new HeadingExtension(),
-new ImageExtension({ enableResizing: true }),
-new DropCursorExtension(),
-new FontSizeExtension({ defaultSize: '16', unit: 'px' }),
-new LinkExtension({ autoLink: true })
+  new BoldExtension(),
+  new ItalicExtension(),
+  new HeadingExtension(),
+  new ImageExtension({ enableResizing: true }),
+  new DropCursorExtension(),
+  new FontSizeExtension({ defaultSize: '16', unit: 'px' }),
+  new LinkExtension({ autoLink: true }),
+  new NodeFormattingExtension(),
+  new BulletListExtension(),
+  new OrderedListExtension(),
+  new ToggleListItemExtension(),
+  new TaskListExtension(),
+
 ];
 
 const FONT_SIZES = ['8', '10', '12', '14', '16', '18', '24', '30'];
@@ -69,92 +85,105 @@ const hooks = [
       ({ state }) => {
         console.log(`Save to backend: ${JSON.stringify(getJSON(state))}`);
 
+
         return true; // Prevents any further key handlers from being run.
       },
       [getJSON],
     );
 
-     
+
     // "Mod" means platform agnostic modifier key - i.e. Ctrl on Windows, or Cmd on MacOS
     useKeymap('Mod-s', handleSaveShortcut);
   },
 
-  
+
 ];
 
 
-  export const getEditorObject = (text) => {
-    return {
-      type: 'doc',
-      content: [
+export const getEditorObject = (text) => {
+  return {
+    type: 'doc',
+    content: [
 
-        {
-          type: 'paragraph',
-          content: [
-            {
-              type: 'text',
-              text,
-            },
-          ],
-        }
-      ],
-    }
+      {
+        type: 'paragraph',
+        content: [
+          {
+            type: 'text',
+            text
+          },
+
+        ],
+      }
+    ],
   }
-
-  export const Editor=() =>{
-    const {editorContent, currentFile} = useContext(FileContext)
-
-    const [file, setFile] = useState(currentFile)
-            const { manager, state,onChange} = useRemirror({
-                extensions,
-                content: editorContent
-              });
-              
-
-        // const handleClick = useCallback(() => {
-        //   // Clear out old state when setting data from outside
-        //   // This prevents e.g. the user from using CTRL-Z to go back to the old state
-        //   manager.view.updateState(manager.createState({ content: editorContent}));
-        // }, [manager]);
+}
 
 
-      useEffect(() => {
-        if (file !== currentFile) {
-          manager.view.updateState(manager.createState({ content: editorContent}));
-          setFile(currentFile)
 
-        }
+export const Editor = () => {
+  const { editorContent, currentFile } = useContext(FileContext)
 
-      }, [currentFile, file])
+  const [file, setFile] = useState(currentFile)
+ 
+  const html = String.raw; // Just for better editor support
+  const { manager, state, onChange } = useRemirror({
+    extensions,
+    content: example
+  });
+
+ 
+
+
+  // const handleClick = useCallback(() => {
+  //   // Clear out old state when setting data from outside
+  //   // This prevents e.g. the user from using CTRL-Z to go back to the old state
+  //   manager.view.updateState(manager.createState({ content: editorContent}));
+  // }, [manager]);
+
+
+  useEffect(() => {
+    if (file !== currentFile) {
+      manager.view.updateState(manager.createState({ content: editorContent }));
+      setFile(currentFile)
+
+    }
+
+  }, [currentFile, file])
+
+
+  return (
+    <>
+
+      <ThemeProvider>
+        <Remirror
+          manager={manager}
+          state={state}
+          hooks={hooks}
+          onChange={onChange}
+        >
+          <Toolbar>
+            <UndoButton />
+            <RedoButton />
+            <CommandButtonGroup>
+              <DecreaseFontSizeButton />
+              <FontSizeButtons />
+              <IncreaseFontSizeButton />
+            </CommandButtonGroup>
+            <TextAlignmentButtonGroup />
+
+            <ToggleItalicButton />
+            <ToggleBoldButton />
+            <HeadingLevelButtonGroup showAll />
+            <ListButtonGroup />
+
+          </Toolbar>
+          <EditorComponent />
+        </Remirror>
+      </ThemeProvider>
+    </>
+  );
 
   
-      return (
-        <>
-        
-        <ThemeProvider>
-          <Remirror 
-            manager={manager} 
-            state={state} 
-            hooks={hooks}
-            onChange={onChange}
-          >
-            <Toolbar>
-              <UndoButton/>
-              <RedoButton/>
-              <CommandButtonGroup>
-                <DecreaseFontSizeButton />
-                <FontSizeButtons />
-                <IncreaseFontSizeButton />
-              </CommandButtonGroup>
-              <ToggleItalicButton />
-              <ToggleBoldButton/>
-              <HeadingLevelButtonGroup showAll />
-            </Toolbar>
-            <EditorComponent/>
-          </Remirror>
-        </ThemeProvider>
-        </>
-      );
-
-  };
+};
 export default Editor;
