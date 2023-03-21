@@ -23,6 +23,14 @@
             "content": [
                 {
                     "type": "text",
+                    "marks": [
+                        {
+                            "type": "textHighlight",
+                            "attrs": {
+                                "highlight": "green"
+                            }
+                        }
+                    ],
                     "text": "PART I"
                 }
             ]
@@ -39,6 +47,14 @@
             "content": [
                 {
                     "type": "text",
+                    "marks": [
+                        {
+                            "type": "textHighlight",
+                            "attrs": {
+                                "highlight": "green"
+                            }
+                        }
+                    ],
                     "text": "GENERAL PROVISIONS"
                 }
             ]
@@ -55,6 +71,14 @@
             "content": [
                 {
                     "type": "text",
+                    "marks": [
+                        {
+                            "type": "textHighlight",
+                            "attrs": {
+                                "highlight": "green"
+                            }
+                        }
+                    ],
                     "text": "Article 1"
                 }
             ]
@@ -71,6 +95,14 @@
             "content": [
                 {
                     "type": "text",
+                    "marks": [
+                        {
+                            "type": "textHighlight",
+                            "attrs": {
+                                "highlight": "green"
+                            }
+                        }
+                    ],
                     "text": "ANTI-DISCRIMINATION AND ANTI-HARASSMENT"
                 }
             ]
@@ -86,7 +118,19 @@
             "content": [
                 {
                     "type": "text",
-                    "text": "1.1  Complaint Process"
+                    "text": "1.1 "
+                },
+                {
+                    "type": "text",
+                    "marks": [
+                        {
+                            "type": "textHighlight",
+                            "attrs": {
+                                "highlight": "red"
+                            }
+                        }
+                    ],
+                    "text": " Complaint Process"
                 }
             ]
         },
@@ -96,30 +140,6 @@
                 "order": 1
             },
             "content": [
-                {
-                    "type": "listItem",
-                    "attrs": {
-                        "closed": false,
-                        "nested": false
-                    },
-                    "content": [
-                        {
-                            "type": "paragraph",
-                            "attrs": {
-                                "nodeIndent": null,
-                                "nodeTextAlignment": "left",
-                                "nodeLineHeight": null,
-                                "style": ""
-                            },
-                            "content": [
-                                {
-                                    "type": "text",
-                                    "text": "The Employer and the Union agree that all employees of the University are responsible to adhere to the University’s policies on human rights as well as those on the prevention of workplace/sexual violence and workplace/sexual harassment."
-                                }
-                            ]
-                        }
-                    ]
-                },
                 {
                     "type": "listItem",
                     "attrs": {
