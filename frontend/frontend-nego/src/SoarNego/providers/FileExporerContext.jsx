@@ -4,22 +4,25 @@ import { getEditorObject } from "../Editor";
 const FileContext = createContext();
 
 export function FileContextProvider({children}){
+    
 
     const [editorContent, setEditorContent] = useState(
-        {
-            type: 'doc',
+      
+      {
+        type: 'doc',
+        content: [
+          {
+            type: 'paragraph',
             content: [
               {
-                type: 'paragraph',
-                content: [
-                  {
-                    type: 'text',
-                    text: 'This is temp text',
-                  },
-                ],
+                type: 'text',
+                text: 'This is temp text',
               },
-            ]
-          }
+            ],
+          },
+        ]
+      }
+          
     )
     const [currentFile, setCurrentFile] = useState('')
 

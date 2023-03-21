@@ -67,12 +67,7 @@ function Explorer(){
                     fileName,
                     fileContent
                 }
-                const parsedJSON = JSON.parse(fileContent)
-                const parts = parsedJSON.Part
-                parts.forEach(part => {
-                    console.log(part)
-                });
-                console.log(parsedJSON)
+                
                 if (!fileData.fileName || !fileData.fileContent) return
                 axios.post('http://localhost:8080/api/save/files',fileData)
                 .then(function (response){

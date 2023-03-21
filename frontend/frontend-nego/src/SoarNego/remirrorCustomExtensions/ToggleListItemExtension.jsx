@@ -4,10 +4,7 @@ import {
 import {
     ExtensionTag,
     findParentNode,
-    KeyBindingProps,
-    KeyBindings,
-    PlainExtension,
-    ProsemirrorNode,
+    PlainExtension
   } from 'remirror';
   
 function isListItemNode(node) {
