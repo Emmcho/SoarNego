@@ -1,4 +1,5 @@
-import React from "react"
+
+import React from 'react'
 import SoarNegoDataService from "../api/SoarNego/SoarNegoDataService.js"
 import {useState, useEffect} from "react"
 import axios from "axios";
@@ -13,8 +14,9 @@ import { useContext } from "react";
 function Explorer(){
 
     const {fileItems, sendToEditorContentLoader } = useContext(FileContext)
-    const {addToFileList, addFileToSessionStorage} = useContext(FileContext)
+    const {addToFileList, readJsonFileContent} = useContext(FileContext)
     const {editorContent} = useContext(FileContext)
+    const id = Math.floor(Math.random() * 1000)
 
     
     //Future enhancement is to be able to read multiple files at a time
@@ -54,34 +56,56 @@ function Explorer(){
         
 
     }
+//May have to comment "handleFileChosen" function after loading JSON file works, works for laoding .txt
+        // const handleFileChosen = (file) => {
+        //     fileReader = new FileReader();
 
-        const handleFileChosen = (file) => {
+        //     const fileName = file.name
+
+        //     const onLoaded = () => {
+        //         const fileContent = fileReader.result
+        //         const fileData = {
+        //             fileId: 1,
+        //             fileName,
+        //             fileContent
+        //         } 
+        //         if (!fileData.fileName || !fileData.fileContent) return
+        //         axios.post('http://localhost:8080/api/save/files',fileData)
+        //         .then(function (response){
+        //             addToFileList(response.data.fileName, 0,true,response.data.fileName+response.data.fileId)
+        //             addFileToSessionStorage(response.data.fileName+response.data.fileId, response.data.fileContent)
+        //         })
+                
+        //         .catch(function(error){
+        //         console.log(error)
+        //         })   
+        //     }
+            
+        //     fileReader.onloadend = onLoaded;
+        //     fileReader.readAsText(file)
+            
+        
+        // } function PasswordField() {
+
+        //const handleFileChosenJSON = (file) => {
+        function handleFileChosenJSON (file) {
             fileReader = new FileReader();
 
             const fileName = file.name
+            const fileId = fileName + id 
 
             const onLoaded = () => {
-                const fileContent = fileReader.result
-                const fileData = {
-                    fileId: 1,
-                    fileName,
-                    fileContent
-                } 
-                if (!fileData.fileName || !fileData.fileContent) return
-                axios.post('http://localhost:8080/api/save/files',fileData)
-                .then(function (response){
-                    addToFileList(response.data.fileName, 0,true,response.data.fileName+response.data.fileId)
-                    addFileToSessionStorage(response.data.fileName+response.data.fileId, response.data.fileContent)
-                })
-                
-                .catch(function(error){
-                console.log(error)
-                })   
+                const fileContent = fileReader.result  
+               //console.log(fileData)
+               
+               const FileObjectDetails = JSON.parse(fileContent)
+               readJsonFileContent(FileObjectDetails,fileId )
+               addToFileList(fileName, 0,true,fileId)
+
             }
             
             fileReader.onloadend = onLoaded;
             fileReader.readAsText(file)
-            
         
         }
 
@@ -90,8 +114,10 @@ function Explorer(){
 
                         <div>
                             <label>Load a File</label>
-                            <input type="file" onChange={e => handleFileChosen(e.target.files[0])}  onClick = {handleClick } name="fileLoader" id="myFile" accept=".txt" ></input>
-                            
+                            {
+                            /* uncomenting next line works fine for loading .txt file
+                            <input type="file" onChange={e => handleFileChosen(e.target.files[0])}  onClick = {handleClick } name="fileLoader" id="myFile" accept=".txt" ></input> */}
+                            <input type="file" onChange={e => handleFileChosenJSON(e.target.files[0])}  onClick = {handleClick } name="fileLoader" id="myFile" accept=".json" ></input>
 
                         </div>
                        
@@ -102,12 +128,15 @@ function Explorer(){
             </div>
           
             
+            {/* TODO: to uncomment and populate the tree after reading JSON file dynamically */}
             <FolderTree
                 data={ fileItems}
                 onNameClick ={handleFileClick}
                 
                
                 />
+
+                
 
             
         

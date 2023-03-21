@@ -1,0 +1,400 @@
+{
+	"FileName": "Contract Document 1",
+	"Version": "Version 1.0",
+	"Title": "Agreement between",
+	"Party": "Between Party A and B",
+	"EditorId": "Super tower",
+	"Date": "June 30, 2023",
+	"NegRound": "Round 1",
+	"Language": "English",
+	"TableOfContents": "To treat later",
+	"Orientation": "Side-by-side",
+	"Preamble": "None this time",
+	"Publisher": "Unknown",
+	"Catalogue": "Catalogue number",
+	"ISBN": "ISBN number",
+	"Part": [
+		{
+			"Heading": "GENERALAL PROVISIONS ",
+			"Label": "PART I ",
+			"id": "pa1",
+			"Article": [
+				{
+					"Heading": "ANTI-DISCRIMINATION AND ANTI-HARASSMENT",
+					"Label": "ARTICLE 1",
+					"id": "pa1ar1",
+					"Section": [
+						{
+							"Heading": "Complaint Process ",
+							"Label": "1.1",
+							"id": "pa1ar1se1",
+							"Paragraph": [
+								{
+									"Heading": "First paragraph",
+									"Label": "a",
+									"id": "pa1ar1se1pa1",
+                                    "Body": "The Employer and the Union agree that all employees of the University are responsible to adhere to the University’s policies on human rights as well as those on the prevention of workplace/sexual violence and workplace/sexual harassment. ",
+									"Sentence": [
+										{
+                                            "Label":"a",
+											"id": "pa1ar1se1pa1sen1",
+											"Content": "Carleton University’s Human Rights Policies and Procedures (including such Discrimination and Harassment Policies as the Sexual Harassment Prevention Policy at Part IV s.4); "
+										},
+										{
+                                            "Label":"b",
+											"id": "pa1ar1se1pa1sen1",
+											"Content": "Carleton’s Workplace Harassment Prevention Policy;."
+										}
+									]
+								},
+                                {
+									"Heading": "Second Paragraph",
+									"Label": "b",
+									"id": "pa1ar1se1pa2",
+                                    "Body":"A copy of the following documents shall be retained on the University website; in Human Resources; and in the Union Office: ",
+									"Sentence": [
+										{
+                                            "Label":"bulletr",
+											"id": "pa1ar1se1pa2sen1",
+											"Content": "Carletons Workplace Harassment Prevention Program;"
+										},
+                                        {
+                                            "Label":"bulletr",
+											"id": "pa1ar1se1pa2sen2",
+											"Content": "Carletons Workplace Violence Prevention Policy; "
+										},
+                                        {
+                                            "Label":"bulletr",
+											"id": "pa1ar1se1pa2sen3",
+											"Content": "Carletons Workplace Violence Prevention Program;  "
+										}
+									]
+								}
+							]
+
+						},
+						{
+							"Heading": "Consideration for CUASA Position ",
+							"Label": "1.2",
+							"id": "pa1ar1se2",
+							"Paragraph": [
+								{
+									"Heading": "First paragraph",
+									"Label": "1.2",
+									"id": "pa1ar1se2pa1",
+									"Sentence": [
+										{
+                                            "Label":"a",
+											"id": "pa1ar1se2pa1sen1",
+											"Content": " Bargaining unit members who apply for and meet the stated requirements as posted for faculty positions shall be evaluated in the same manner as all other candidates when the University advertises for a faculty position covered by the CUASA collective agreement. "
+										},
+                                        {
+                                            "Label":"b",
+											"id": "pa1ar1se2pa1sen2",
+											"Content": "A copy of the advertisement for all faculty and instructor posts in the CUASA bargaining unit shall be sent to the Union within ten (10) working days of it’s placement in University Affairs, the CAUT Bulletin, and/or websites.  "
+										}
+									]
+								}
+							]
+						}
+						
+
+
+					]
+				},
+                {
+					"Heading": "CONFIDENTIALITY & ACCESS TO PERSONNEL FILES ",
+					"Label": "ARTICLE 2",
+					"id": "pa1ar2",
+					"Section": [
+						{
+							"Heading": "first section under article two ",
+							"Label": "2.1",
+							"id": "pa1ar2se1",
+							"Paragraph": [
+								{
+									"Heading": "First paragraph",
+									"Label": "a",
+									"id": "pa1ar2se1pa1",
+                                    "Body": "An employee shall have the right to examine the contents of the employee's personnel file(s) during normal business hours, with the exception of confidential letters of reference. The employee may request and the Employer shall provide the names of authors of such confidential letters. ",
+									"Sentence": [
+										{
+                                            "Label":"a",
+											"id": "pa1ar2se1pa1sen2",
+											"Content": "Just a filler "
+										},
+										{
+                                            "Label":"b",
+											"id": "pa1ar2se1pa1sen2",
+											"Content": "just a filler"
+										}
+									]
+								},
+                                {
+									"Heading": "Second Paragraph",
+									"Label": "b",
+									"id": "pa1ar2se1pa2",
+                                    "Body":" Except for confidential letters of reference and student teaching evaluations, no material on the employee's file related to the employee's performance shall be used in a hiring decision unless the employee has been notified that it has been placed on the file.  ",
+									"Sentence": [
+										{
+                                            "Label":"bulletr",
+											"id": "pa1ar2se1pa2sen1",
+											"Content": " just filler; "
+										},
+                                        {
+                                            "Label":"bulletr",
+											"id": "pa1ar2se1pa2sen2",
+											"Content": "just filler "
+										},
+                                        {
+                                            "Label":"bulletr",
+											"id": "pa1ar2se1pa2sen3",
+											"Content": "just filler "
+										}
+									]
+								}
+							]
+
+						},
+						{
+							"Heading": "Disciplinary Documents ",
+							"Label": "2.2",
+							"id": "pa1ar2se2",
+							"Paragraph": [
+								{
+									"Heading": "First paragraph",
+									"Label": "a",
+									"id": "pa1ar2se2pa1",
+                                    "Body":"Subject to Article 12.5, where a letter imposing discipline, or other disciplinary documents, or both is being added to an employee’s file, the employee must, where possible, be notified and asked to initial any documents relating to the disciplinary action",
+									"Sentence": [
+										{
+                                            "Label":"a",
+											"id": "pa1ar2se2pa1sen1",
+											"Content": " Just a filler. "
+										},
+                                        {
+                                            "Label":"b",
+											"id": "pa1ar2se2pa1sen2",
+											"Content": "Just a filler "
+										}
+									]
+								},
+                                {
+									"Heading": "Second paragraph",
+									"Label": "b",
+									"id": "pa1ar2se2pa2",
+                                    "Body":"In the event of alleged distortion or error, the employee may request the inclusion of material pertinent to the alleged distortion or error. In the event of an error being established, the file shall be corrected and any erroneous material removed. ",
+									"Sentence": [
+										{
+                                            "Label":"a",
+											"id": "pa1ar2se2pa2sen1",
+											"Content": " Just a filler. "
+										},
+                                        {
+                                            "Label":"b",
+											"id": "pa1ar2se2pa2sen2",
+											"Content": "Just a filler "
+										}
+									]
+								}
+							]
+						}
+						
+
+
+					]
+				}
+
+
+				
+			]
+		},
+        {
+			"Heading": "STRATEGIC PRIORITIES TITLE I HUMAN RIGHTS, DEMOCRACY, AND GOVERNANCE IN PEOPLE-CENTRED AND RIGHTS-BASED SOCIETIES ",
+			"Label": "PART 2 ",
+			"id": "pa2",
+			"Article": [
+				{
+					"Heading": "POSTINGS AND APPLICATIONS ",
+					"Label": "ARTICLE 3",
+					"id": "pa2ar1",
+					"Section": [
+						{
+							"Heading": "Purpose",
+							"Label": "15.1",
+							"id": "pa2ar1se1",
+                            "Body":"Except as provided in Article 17 and Article 16, all positions shall be advertised and applications solicited in accordance with this Article. ",
+							"Paragraph": [
+								{
+									"Heading": "First paragraph",
+									"Label": "I",
+									"id": "pa2ar1se1pa1",
+									"Sentence": [
+										{
+											"id": "pa2ar1se1pa1se1",
+											"Content": "Departments that anticipate hiring Contract Instructors shall post their notices and send a copy to the Union by May 1st for courses being offered for the following fall and winter and by December 15th for courses being offered in the summer."
+										},
+										{
+											"id": "pa2ar1se1pa1se2",
+											"Content": " Gap filler."
+										}
+									]
+								},
+                                {
+									"Heading": "Secong paragraph",
+									"Label": "II",
+									"id": "pa2ar1se1pa2",
+									"Sentence": [
+										{
+											"id": "pa2ar1se1pa2se1",
+											"Content": "If no courses are available by these deadlines, the department shall post a notice, with a copy sent to the union, indicating whether it will not hire Contract Instructors in the following term(s), or whether the posting is simply delayed. A timeline for posting may be included if known. "
+										},
+										{
+											"id": "pa2ar1se1pa2se2",
+											"Content": " Gap filler."
+										}
+									]
+								}
+
+							]
+						},
+						{
+							"Heading": "Second Section",
+							"Label": "15.2",
+							"id": "pa2ar1se2",
+                            "Body":"Gap filler as it doesn't have value",
+							"Paragraph": [
+								{
+									"Heading": "Gap Filler",
+									"Label": "a",
+									"id": "pa2ar1se2pa1",
+									"Sentence": [
+										{
+											"id": "pa2ar1se2pa1se1",
+											"Content": "Except for needs which arise within ten weeks of the start of classes (Article 16.9), courses which become available after the May 1st and December 15th deadlines must be posted as quickly as possible, and an electronic copy provided to the Union within five (5) business days. Additionally, departments shall make an effort to notify members of the added postings. "
+										}
+									]
+								},
+                                {
+									"Heading": "Gap Filler",
+									"Label": "b",
+									"id": "pa2ar1se2pa2",
+									"Sentence": [
+										{
+											"id": "pa2ar1se2pa2se1",
+											"Content": "Notices shall be posted for at least twenty-one (21) calendar days on websites, with a copy to the Union. Each notice shall include:   "
+										},
+                                        {
+											"id": "pa2ar1se2pa2se2",
+											"Content": " the course number, title and description,"
+										},
+                                        {
+											"id": "pa2ar1se2pa2se3",
+											"Content": "the qualifications required for the position, "
+										}
+									]
+								}
+
+							]
+						}
+
+
+					]
+				},
+                {
+					"Heading": "WORKING CONDITIONS  ",
+					"Label": "ARTICLE 4",
+					"id": "pa2ar2",
+					"Section": [
+						{
+							"Heading": "Purpose",
+							"Label": "19.1",
+							"id": "pa2ar2se1",
+                            "Body":"Gap filler as it doesn't have value",
+							"Paragraph": [
+								{
+									"Heading": "First paragraph",
+									"Label": "a",
+									"id": "pa2ar2se1pa1",
+									"Sentence": [
+										{
+											"id": "pa2ar2se1pa1se1",
+											"Content": "To the extent that departmental resources permit, and as are required for the performance of their duties, departments shall provide employees with:"
+										},
+										{
+											"id": "pa2ar2se1pa1se2",
+											"Content": "appropriate space and use of other facilities, services and equipment; "
+										},
+                                        {
+											"id": "pa2ar2se1pa1se3",
+											"Content": "library, computing and audio-visual facilities;  "
+										}
+									]
+								},
+                                {
+									"Heading": "Secong paragraph",
+									"Label": "b",
+									"id": "pa2ar2se1pa1pa2",
+									"Sentence": [
+										{
+											"id": "pa2ar2se1pa1pa2se1",
+											"Content": "Upon proof of having been hired for a course(s) in the upcoming Academic Year, Employees or prospective employees shall have access to library, computing and e-mail facilities as provided in Article 19.1 (a) for the purpose of performing their functions as a contract instructor.  "
+										},
+										{
+											"id": "pa2ar1se1pa2se2",
+											"Content": " Library access shall be maintained for a period of twelve (12) months from the last day of the end of the academic term in which the employee worked as a Contract Instructor. The parties acknowledge that any extension of library access must be consistent with the Library’s obligations under the provisions of applicable licensing agreements. "
+										}
+									]
+								}
+
+							]
+						},
+						{
+							"Heading": "Second Section",
+							"Label": "19.2",
+							"id": "pa2ar2se2",
+                            "Body":"An employee may request, in writing stating reasons, that the Employer complete the form required by Canada Revenue Agency (currently the T2200 Form) for the employee to use in support of a claim for home office expenses. Such request shall not be unreasonably denied. ",
+							"Paragraph": [
+								{
+									"Heading": "Gap Filler",
+									"Label": "a",
+									"id": "pa2ar2se2pa1",
+									"Sentence": [
+										{
+											"id": "pa2ar2se2pa1se1",
+											"Content": " Gap filler."
+										}
+									]
+								},
+                                {
+									"Heading": "Gap Filler",
+									"Label": "b",
+									"id": "pa2ar2se2pa2",
+									"Sentence": [
+										{
+											"id": "pa2ar2se2pa2se1",
+											"Content": " Gap filler."
+										},
+                                        {
+											"id": "pa2ar2se2pa2se2",
+											"Content": " Gap filler."
+										},
+                                        {
+											"id": "pa2ar2se2pa2se3",
+											"Content": " Gap filler."
+										}
+									]
+								}
+
+							]
+						}
+
+
+					]
+				}
+
+				
+			]
+		}
+	]
+}
