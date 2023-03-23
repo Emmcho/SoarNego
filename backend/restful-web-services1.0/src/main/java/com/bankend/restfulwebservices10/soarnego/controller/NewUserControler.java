@@ -1,4 +1,3 @@
-/*
 package com.bankend.restfulwebservices10.soarnego.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.bankend.restfulwebservices10.soarnego.model.NewUserEntity;
-import com.bankend.restfulwebservices10.soarnego.model.NewUserRepo;;
+import com.bankend.restfulwebservices10.soarnego.repository.NewUserRepo;;
 
 @RestController 
 @CrossOrigin(origins="http://localhost:4200")
@@ -25,7 +24,7 @@ public class NewUserControler {
 	@PostMapping("/save/newUser")
 	public ResponseEntity<NewUserEntity> createNewUserEntity(@RequestBody NewUserEntity newUserEntity){
 		NewUserEntity _newUserEntity =  newUserRepo
-				.save(new NewUserEntity(newUserEntity.getUsername(), newUserEntity.getUsername(),  
+				.save(new NewUserEntity(newUserEntity.getUserFullName(), newUserEntity.getUserName(),  
 						newUserEntity.getEmail(),  newUserEntity.getPassword()));
 		return new ResponseEntity<NewUserEntity>(_newUserEntity, HttpStatus.CREATED);
 		
@@ -34,4 +33,3 @@ public class NewUserControler {
 	
 
 }
-*/

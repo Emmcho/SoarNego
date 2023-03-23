@@ -22,34 +22,17 @@ function LoginPage (){
  
 
     function handleLoginClicked(value){
-        // if(value.username==='user' && value.password==='dummy'){
-        //     // userContext.setAuthUser(value.username)
-        //     AuthenticationService.registerSuccessfulLogin(value.username,value.password)
-        //     // console.log(AuthenticationService.isUserLoggedIn());
-        //     navigate(`/`)
+        if(value.username==='user' && value.password==='dummy'){
+            // userContext.setAuthUser(value.username)
+            AuthenticationService.registerSuccessfulLogin(value.username,value.password)
+            // console.log(AuthenticationService.isUserLoggedIn());
+            navigate(`/`)
             
-        // }
-        // else {
-        //     setshowSuccessMessage(false)
-        //     sethasLoginFailed(true)
-        // }
-
-        AuthenticationService
-        . executeJwtAuthenService(value.firstname, value.password)
-        .then((response) => {
-            AuthenticationService.registerSuccessfulLoginForJwt(value.firstname,response.data.token)
-            //TODO: consider sending param with the link 
-            //this.props.history.push(`/welcome/${this.state.username}`)
-            navigate(`/soarnego`)
-        }).catch( () =>{
-            //TODO: Set below as necessary
+        }
+        else {
             setshowSuccessMessage(false)
             sethasLoginFailed(true)
-           
-        })
-
-
-
+        }
     }
 
 
@@ -63,7 +46,7 @@ function LoginPage (){
 
                     <Formik
                     initialValues={{
-                        firstname: '',
+                        username: '',
                         password: '',
             
                       }}
@@ -73,8 +56,8 @@ function LoginPage (){
                             (props) => (
                                 <Form>
                                     <fieldset className="form-group">
-                                        <label>Email Supplied</label>
-                                        <Field className="form-control" type="text" name="firstname"></Field>
+                                        <label>User Name</label>
+                                        <Field className="form-control" type="text" name="username"></Field>
                                     </fieldset>
                                     <fieldset className="form-group">
                                         <label>Password</label>

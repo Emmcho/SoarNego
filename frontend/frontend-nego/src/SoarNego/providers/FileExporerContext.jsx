@@ -33,7 +33,7 @@ export function FileContextProvider({children}){
         {
                 name: "Root Folder",
                 checked: 0,
-                isOpen: false, // this folder is opened, we can see it's children
+                isOpen: true, // this folder is opened, we can see it's children
                 children: [
                 ]
               }
