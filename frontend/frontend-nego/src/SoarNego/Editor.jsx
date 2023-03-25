@@ -25,6 +25,7 @@ import { ToggleListItemExtension } from "./remirrorCustomExtensions/ToggleListIt
 import { HighlightButtons} from './remirrorComponents/HighlightButtons';
 import { EntityReferenceButtons,decorateHighlights } from './remirrorComponents/EntityReferenceButtons';
 import { FontSizeButtons } from './remirrorComponents/FontSizeButtons';
+import { LineHeightButtonDropdown } from './remirrorComponents/LineHeightButtonDropdown';
 // These lines import the `FileContext` and `useContext` hooks from the `react` library, as well as a custom extension called `ToggleListItemExtension`.
 
 
@@ -132,9 +133,9 @@ export const Editor = () => {
                             <IncreaseFontSizeButton />
                         </CommandButtonGroup>
                         <TextAlignmentButtonGroup />
-
                         <ToggleItalicButton />
                         <ToggleBoldButton />
+                        <LineHeightButtonDropdown/>
                         <HeadingLevelButtonGroup showAll />
                         <ListButtonGroup />
                         <HighlightButtons />
