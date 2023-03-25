@@ -1,4 +1,4 @@
-import {useCommands} from '@remirror/react';
+import {useCommands, Button} from '@remirror/react';
 
 export const HighlightButtons = () => {
     const commands = useCommands();
