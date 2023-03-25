@@ -1,33 +1,16 @@
 
 import 'remirror/styles/all.css';
-import { useCallback, useState, useEffect } from 'react';
+import { useCallback, useState, useEffect,useContext } from 'react';
 import {
     BoldExtension, ItalicExtension, ImageExtension, DropCursorExtension, FontSizeExtension, HeadingExtension, LinkExtension, NodeFormattingExtension,
-    BulletListExtension, OrderedListExtension, TaskListExtension,TextHighlightExtension
+    BulletListExtension, OrderedListExtension, TaskListExtension, TextHighlightExtension,EntityReferenceExtension,EntityReferenceMetaData,findMinMaxRange,
 } from 'remirror/extensions';
 import {
-    EditorComponent,
-    ThemeProvider,
-    useActive,
-    Remirror,
-    useRemirror,
-    useCommands,
-    useHelpers,
-    useKeymap,
-    Toolbar,
-    ToggleItalicButton,
-    ToggleBoldButton,
+    EditorComponent,ThemeProvider,useActive,Remirror,useRemirror,useCommands,useHelpers,useKeymap,Toolbar,ToggleItalicButton,ToggleBoldButton,
     CommandButtonGroup,
-    CommandMenuItem,
-    DecreaseFontSizeButton,
-    DropdownButton,
-    IncreaseFontSizeButton,
-    HeadingLevelButtonGroup,
-    UndoButton,
-    RedoButton,
+    CommandMenuItem,DecreaseFontSizeButton,DropdownButton,IncreaseFontSizeButton,HeadingLevelButtonGroup,UndoButton,RedoButton,
     TextAlignmentButtonGroup,
     ListButtonGroup,
-     
 } from '@remirror/react';
 
 
@@ -38,10 +21,10 @@ import {
 
 
 import FileContext from "./providers/FileExporerContext";
-import { useContext } from "react";
 import { ToggleListItemExtension } from "./remirrorCustomExtensions/ToggleListItemExtension.jsx"
-
-
+import { HighlightButtons} from './remirrorComponents/HighlightButtons';
+import { EntityReferenceButtons,decorateHighlights } from './remirrorComponents/EntityReferenceButtons';
+import { FontSizeButtons } from './remirrorComponents/FontSizeButtons';
 // These lines import the `FileContext` and `useContext` hooks from the `react` library, as well as a custom extension called `ToggleListItemExtension`.
 
 
@@ -58,66 +41,14 @@ const extensions = () => [
     new OrderedListExtension(),
     new ToggleListItemExtension(),
     new TaskListExtension(),
-    new TextHighlightExtension()
+    new TextHighlightExtension(),
+    new EntityReferenceExtension({
+        getStyle: decorateHighlights,
+      }),
 ];
 
 
-// This defines an array of `remirror` extensions that will be used in the editor. Each extension is instantiated as a new object.
 
-
-const FONT_SIZES = ['8', '10', '12', '14', '16', '18', '24', '30'];
-
-
-// This defines an array of font sizes that will be used in the editor.
-
-
-const FontSizeButtons = () => {
-    const { setFontSize } = useCommands();
-    const { fontSize } = useActive();
-    return (
-        <DropdownButton aria-label='Set font size' icon='fontSize'>
-            {FONT_SIZES.map((size) => (
-                <CommandMenuItem
-                    key={size}
-                    commandName='setFontSize'
-                    onSelect={() => setFontSize(size)}
-                    enabled={setFontSize.enabled(size)}
-                    active={fontSize({ size })}
-                    label={size}
-                    icon={null}
-                    displayDescription={false}
-                />
-            ))}
-        </DropdownButton>
-    );
-};
-// This defines a custom component called `FontSizeButtons` that renders a dropdown menu of font sizes. It uses the `useCommands` and `useActive` hooks from `remirror` to set and retrieve the font size.
-
-const HighlightButtons = () => {
-    const commands = useCommands();
-    return (
-      <>
-        <button
-          onMouseDown={(event) => event.preventDefault()}
-          onClick={() => commands.setTextHighlight('red')}
-        >
-          Highlight red
-        </button>
-        <button
-          onMouseDown={(event) => event.preventDefault()}
-          onClick={() => commands.setTextHighlight('green')}
-        >
-          Highlight green
-        </button>
-        <button
-          onMouseDown={(event) => event.preventDefault()}
-          onClick={() => commands.removeTextHighlight()}
-        >
-          Remove
-        </button>
-      </>
-    );
-  };
 
 const hooks = [
     () => {
@@ -207,7 +138,7 @@ export const Editor = () => {
                         <HeadingLevelButtonGroup showAll />
                         <ListButtonGroup />
                         <HighlightButtons />
-
+                        <EntityReferenceButtons/>
 
                     </Toolbar>
                     <EditorComponent />
