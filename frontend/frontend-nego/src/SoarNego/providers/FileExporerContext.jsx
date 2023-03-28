@@ -4,7 +4,8 @@ import { getEditorObject } from "../Editor";
 const FileContext = createContext();
 
 export function FileContextProvider({children}){
-    
+  const [selectedFile, setSelectedFile] = useState(null);
+
 
     const [editorContent, setEditorContent] = useState(
       
@@ -59,7 +60,7 @@ export function FileContextProvider({children}){
 
    
     return(
-        <FileContext.Provider value = {{fileItems,addToFileList, addFileToSessionStorage, sendToEditorContentLoader, editorContent, currentFile }}>
+        <FileContext.Provider value = {{fileItems,addToFileList, addFileToSessionStorage, sendToEditorContentLoader, editorContent, currentFile,selectedFile,setSelectedFile }}>
             {children}
         </FileContext.Provider>
 

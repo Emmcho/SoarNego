@@ -54,7 +54,7 @@ function SoarNegoConnectorPage () {
                                                     
                                         {/* </Route> */}
                                     </Routes>
-                                    <FooterComponent/> 
+                                    
                             </Router>
                             </ShowDiffProvider>
                         </FileContextProvider>

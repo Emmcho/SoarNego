@@ -21,6 +21,7 @@ import {
 
 
 import FileContext from "./providers/FileExporerContext";
+
 import { ToggleListItemExtension } from "./remirrorCustomExtensions/ToggleListItemExtension.jsx"
 import { HighlightButtons} from './remirrorComponents/HighlightButtons';
 import { EntityReferenceButtons,decorateHighlights } from './remirrorComponents/EntityReferenceButtons';
@@ -86,10 +87,14 @@ export const getEditorObject = (text) => {
 var currFile
 
 export function getCurrFile(){
+    
+    
     return currFile
 }
 
 export const Editor = () => {
+    const {setSelectedFile } = useContext(FileContext);
+    
     const { editorContent, currentFile } = useContext(FileContext)
 
     const [file, setFile] = useState(currentFile)
@@ -112,6 +117,7 @@ export const Editor = () => {
         if (file !== currentFile) {
             manager.view.updateState(manager.createState({ content: editorContent }));
             setFile(currentFile)
+            setSelectedFile(currentFile);
             currFile = currentFile
         }
 

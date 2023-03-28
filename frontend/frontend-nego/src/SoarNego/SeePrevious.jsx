@@ -1,7 +1,5 @@
 import { useState,useEffect,useContext } from "react";
 import {getCurrFile} from "./Editor"
-import FileContext from "./providers/FileExporerContext";
-import DiffMatchPatch from 'diff-match-patch';
 import JsonDiffReact from 'jsondiffpatch-for-react';
 import ShowDiffContext from './ShowDiffContext';
 
@@ -18,6 +16,7 @@ const compareJson = (left, right, setDelta) => {
   });
 
   const delta = jsondiffpatch.diff(left, right);
+  
   setDelta(delta);
 };
 
@@ -72,9 +71,9 @@ export const SeePrevious = () =>{
           </select>
           {selectedFile && delta && (
             <JsonDiffReact
-              left={left}
-              right={selectedFile}
-              delta={delta}
+              left={JSON.stringify(left)}
+              right={JSON.stringify(selectedFile)}
+              
               jsondiffpatch={{
                 objectHash: (obj) => obj._id || obj.id,
                 arrays: {
