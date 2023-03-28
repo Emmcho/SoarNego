@@ -32,7 +32,7 @@ function SoarNegoAppPage () {
 
                 {/* Right side pane, meant for display of text processing from the text editor central pane  */}
                 <div>  <BasicExample/>
-                       <BasicExample1/>
+                       
                 </div>
                 
               </Split>

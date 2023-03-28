@@ -83,6 +83,11 @@ export const getEditorObject = (text) => {
 
 // This defines a function called `getEditorObject` that takes a JSON string as input, parses it, and returns an object with a `type` and `content` property.
 
+var currFile
+
+export function getCurrFile(){
+    return currFile
+}
 
 export const Editor = () => {
     const { editorContent, currentFile } = useContext(FileContext)
@@ -106,9 +111,8 @@ export const Editor = () => {
     useEffect(() => {
         if (file !== currentFile) {
             manager.view.updateState(manager.createState({ content: editorContent }));
-
             setFile(currentFile)
-
+            currFile = currentFile
         }
 
     }, [currentFile, file])

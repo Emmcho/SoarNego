@@ -53,7 +53,7 @@ export const EntityReferenceButtons = () => {
           if (!active) {
             // Add highlight
             const id = uniqueId();
-            commands.addEntityReference(id);
+            commands.addEntityReference(id);  
             allHighlights.set(id, type);
           } else {
             // Remove highlight

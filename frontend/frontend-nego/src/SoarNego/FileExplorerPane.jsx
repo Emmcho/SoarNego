@@ -10,8 +10,7 @@ import FileContext from "./providers/FileExporerContext.jsx";
 import { useContext } from "react";
 
 
-function Explorer(){
-
+export function Explorer(){
     const {fileItems, sendToEditorContentLoader } = useContext(FileContext)
     const {addToFileList, addFileToSessionStorage} = useContext(FileContext)
     const {editorContent} = useContext(FileContext)
@@ -50,8 +49,7 @@ function Explorer(){
     const handleFileClick = (state, event)=>{
         //sending the file content to a context function API that saves it in the session storage 
         sendToEditorContentLoader(state.nodeData.fileIndex)
-        //console.log("Content sent to loader", state.nodeData.fileIndex)
-        
+        // console.log("Content sent to loader", state.nodeData.fileIndex)
 
     }
 
