@@ -24,62 +24,70 @@ const compareJson = (left, right, setDelta) => {
 
 export const SeePrevious = () =>{
 
-    const [sessionData, setSessionData] = useState([]);
-    const { currentFile } = useContext(FileContext)
+    const  currentFile = getCurrFile()
     const [delta, setDelta] = useState(null);
     const { showDiff } = useContext(ShowDiffContext);
+    const [selectedFile, setSelectedFile] = useState(null);
 
-    
-    
-  
-    const left = sessionStorage.getItem("Contract_Document1_V2_03_21_2023.json64")
-    const right =sessionStorage.getItem("Contract_Document1_V3_03_21_2023.json65")
-    
-    if (!delta && showDiff) {
-      compareJson(left, right, setDelta);
+    var left
+    if(currentFile){
+      left = JSON.parse(sessionStorage.getItem(currentFile))
     }
-  
-    if (!showDiff) {
-      return null;
-    }
-  
-  
+    
+    
+    
 
-    // const currFile = getCurrFile()
-   
-    // const sessionKeys = Object.keys(sessionStorage);
-    // const sessionDataArray =[]
-   
-    // sessionKeys.forEach(key => {
-    //     // console.log(key)
-    //     // console.log(currFile)
-    //     sessionDataArray.push(sessionStorage.getItem(key))
+    useEffect(() => {
+      
+      if (showDiff && !delta && left && selectedFile) {
         
-    // });
+        compareJson(left, selectedFile, setDelta);
+      }
+      
+    }, [showDiff, delta, left, selectedFile]);
+
+    const handleFileSelect = (event) => {
+      
+      setSelectedFile( JSON.parse(sessionStorage.getItem(event.target.value)));
+    };
+
+    const sessionKeys = Object.keys(sessionStorage);
+
     
-    // setSessionData(sessionDataArray);
-    
+
     
     
         
      return (
       <div>
-      {delta && (
-        <JsonDiffReact
-          left={left}
-          right={right}
-          delta={delta}
-          jsondiffpatch={{
-            objectHash: (obj) => obj._id || obj.id,
-            arrays: {
-              detectMove: true,
-              includeValueOnMove: true,
-            },
-            textDiff: {
-              minLength: 60,
-            },
-          }}
-        />
+      {showDiff && (
+        <>
+          <select onChange={handleFileSelect}>
+            <option value="">Select a file</option>
+            {sessionKeys.map((key) => (
+              <option key={key} value={key}>
+                {key}
+              </option>
+            ))}
+          </select>
+          {selectedFile && delta && (
+            <JsonDiffReact
+              left={left}
+              right={selectedFile}
+              delta={delta}
+              jsondiffpatch={{
+                objectHash: (obj) => obj._id || obj.id,
+                arrays: {
+                  detectMove: true,
+                  includeValueOnMove: true,
+                },
+                textDiff: {
+                  minLength: 60,
+                },
+              }}
+            />
+          )}
+        </>
       )}
     </div>
   );

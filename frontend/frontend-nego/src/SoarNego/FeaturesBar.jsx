@@ -8,18 +8,6 @@ function Features(){
     const { setShowDiff } = useContext(ShowDiffContext);
     const [filesToCompare, setFilesToCompare] = useState([]);
 
-        // const handleClick = () => {
-        // const currentFile = "Contract_Document1_V3_03_21_2023.json64"; // Replace this with your current file key
-        // const sessionKeys = Object.keys(sessionStorage).filter(key => key !== currentFile);
-        // const sessionDataArray = [];
-    
-        // sessionKeys.forEach(key => {
-        //     sessionDataArray.push(sessionStorage.getItem(key));
-        // });
-    
-        // setFilesToCompare(sessionDataArray);
-        // setShowDiff(!showDiff);
-        // };
     return(
         <>
         <ButtonGroup aria-label="Basic example">
