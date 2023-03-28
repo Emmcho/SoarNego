@@ -52,10 +52,7 @@ export const SeePrevious = () =>{
 
     const sessionKeys = Object.keys(sessionStorage);
 
-    
-
-    
-    
+  
         
      return (
       <div>
@@ -69,10 +66,17 @@ export const SeePrevious = () =>{
               </option>
             ))}
           </select>
+          <div style={
+                {height: "800px",
+                textAlign: "left",
+                overflowY: "auto",
+                whiteSpace: "pre-wrap",
+                wordWrap: "break-word"}
+                }>
           {selectedFile && delta && (
             <JsonDiffReact
-              left={JSON.stringify(left)}
-              right={JSON.stringify(selectedFile)}
+              left={left}
+              right={selectedFile}
               
               jsondiffpatch={{
                 objectHash: (obj) => obj._id || obj.id,
@@ -84,8 +88,10 @@ export const SeePrevious = () =>{
                   minLength: 60,
                 },
               }}
+              
             />
           )}
+          </div>
         </>
       )}
     </div>

@@ -24,7 +24,7 @@ import FileContext from "./providers/FileExporerContext";
 
 import { ToggleListItemExtension } from "./remirrorCustomExtensions/ToggleListItemExtension.jsx"
 import { HighlightButtons} from './remirrorComponents/HighlightButtons';
-import { EntityReferenceButtons,decorateHighlights } from './remirrorComponents/EntityReferenceButtons';
+
 import { FontSizeButtons } from './remirrorComponents/FontSizeButtons';
 import { LineHeightButtonDropdown } from './remirrorComponents/LineHeightButtonDropdown';
 // These lines import the `FileContext` and `useContext` hooks from the `react` library, as well as a custom extension called `ToggleListItemExtension`.
@@ -44,9 +44,7 @@ const extensions = () => [
     new ToggleListItemExtension(),
     new TaskListExtension(),
     new TextHighlightExtension(),
-    new EntityReferenceExtension({
-        getStyle: decorateHighlights,
-      }),
+    
 ];
 
 
@@ -149,7 +147,7 @@ export const Editor = () => {
                         <HeadingLevelButtonGroup showAll />
                         <ListButtonGroup />
                         <HighlightButtons />
-                        <EntityReferenceButtons/>
+                        
 
                     </Toolbar>
                     <EditorComponent />

@@ -36,10 +36,10 @@ function SoarNegoAppPage () {
 
               <div className="upperPane"> <Features/> </div>
 
-              <Split className="flex" sizes={[15,70,15]}>
+              <Split   className="flex" sizes={[15,60,25]}>
                 
                 {/* This is component to display working file directory */}
-                <div > <Explorer/></div>
+                <div style={{overflow:"auto"}}> <Explorer/></div>
                 {/* Text editor Component */}
       
                <Editor></Editor>
