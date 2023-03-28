@@ -20,7 +20,7 @@ export function FileContextProvider({ children }) {
           content: [
             {
               type: 'text',
-              text: 'This is temp text',
+              text: 'Load a file from the right panel',
             },
           ],
         },

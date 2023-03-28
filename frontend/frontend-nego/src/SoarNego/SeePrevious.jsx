@@ -25,19 +25,21 @@ const compareJson = (left, right, setDelta) => {
 
 
 export const SeePrevious = () => {
-  const { fetchAllFiles } = useContext(FileContext)
   const [fileList, setFileList] = useState([]);
 
-  const currentFile = getCurrFile()
+  const selectedFile = useContext(FileContext)
   const [delta, setDelta] = useState(null);
   const { showDiff } = useContext(ShowDiffContext);
-  const [selectedFile, setSelectedFile] = useState(null);
+  const [selectedListFile, setSelectedListFile] = useState(null);
+  
 
   var left
-  if (currentFile) {
-    left = JSON.parse(sessionStorage.getItem(currentFile))
-  }
+  
 
+  if (selectedFile) {
+    left = selectedFile.editorContent
+  }
+  
   async function fetchFileList() {
     try {
       const response = await axios.get("http://localhost:8080/api/get/all-files");
@@ -50,13 +52,14 @@ export const SeePrevious = () => {
 
   useEffect(() => {
     fetchFileList();
+    
   }, []);
 
   useEffect(() => {
 
     if (showDiff && !delta && left && selectedFile) {
 
-      compareJson(left, selectedFile, setDelta);
+      compareJson(left, selectedListFile, setDelta);
     }
 
   }, [showDiff, delta, left, selectedFile]);
@@ -66,11 +69,11 @@ export const SeePrevious = () => {
     const selectedFileName = event.target.value;
     const selectedFileObject = fileList.find(file => file.fileName === selectedFileName);
     if (selectedFileObject) {
-      setSelectedFile(JSON.parse(selectedFileObject.fileContent));
+      
+      setSelectedListFile(JSON.parse(selectedFileObject.fileContent));
     }
   };
 
-  const sessionKeys = Object.keys(sessionStorage);
 
 
 
@@ -100,8 +103,8 @@ export const SeePrevious = () => {
             {selectedFile && delta && (
               <JsonDiffReact
                 left={left}
-                right={selectedFile}
-
+                right={selectedListFile}
+                delta ={delta}
                 jsondiffpatch={{
                   objectHash: (obj) => obj._id || obj.id,
                   arrays: {

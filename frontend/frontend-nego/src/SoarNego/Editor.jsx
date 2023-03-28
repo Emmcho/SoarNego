@@ -54,11 +54,11 @@ const extensions = () => [
 const hooks = [
     () => {
         const { getJSON } = useHelpers();
-        const { setSelectedFile,currentFile, fileItems } = useContext(FileContext);
+        const {currentFile, fileItems } = useContext(FileContext);
         const handleSaveShortcut = useCallback(
             async ({ state }) => {
               const content = JSON.stringify(getJSON(state));
-              console.log(`Save to backend: ${content}`);
+              
                           
               // Get the fileId from the FileContext
               const fileItem = fileItems.children.find(item => item.fileIndex === currentFile);
@@ -87,6 +87,42 @@ const hooks = [
 
         useKeymap('Mod-s', handleSaveShortcut);
     },
+    ()=>{
+        const { getJSON } = useHelpers();
+        const {currentFile, fileItems } = useContext(FileContext);
+        const handleSaveAutomatically = useCallback(
+        async ({ state }) => {
+          const content = JSON.stringify(getJSON(state));
+          console.log(`Save to backend: ${content}`);
+      
+          // Get the fileId from the FileContext
+          const fileItem = fileItems.children.find(
+            (item) => item.fileIndex === currentFile
+          );
+          const fileId = fileItem?.fileId;
+          console.log('File ID:', fileId);
+      
+          // Replace the URL below with your Spring Boot API endpoint
+          const url = `http://localhost:8080/api/update/files/${fileId}`;
+      
+          setTimeout(async () => {
+            try {
+              const response = await axios.put(url, {
+                fileName: currentFile,
+                fileContent: content,
+              });
+              console.log('File saved successfully');
+            } catch (error) {
+              console.error('Error saving file:', error.message);
+            }
+          }, 1000);
+      
+          return true; // Prevents any further key handlers from being run.
+        },
+        [getJSON, currentFile, fileItems.children]
+      );
+    }
+    
 ];
 
 
