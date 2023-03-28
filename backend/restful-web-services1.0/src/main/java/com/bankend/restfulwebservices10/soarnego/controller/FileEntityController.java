@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 
 import com.bankend.restfulwebservices10.soarnego.model.FileEntity;
 import com.bankend.restfulwebservices10.soarnego.repository.FileEntityRepository;
-
+import java.util.*;
 //@RestController
 //@CrossOrigin(maxAge = 3600, allowCredentials = "true")
 //@RequestMapping("/api/save/files")
@@ -77,5 +77,16 @@ public class FileEntityController {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
 	}
-
+	@GetMapping("/get/all-files")
+	public ResponseEntity<List<FileEntity>> getAllFileEntities() {
+		List<FileEntity> fileEntities = new ArrayList<>();
+		fileEntityRepository.findAll().forEach(fileEntities::add);
+	
+		if (fileEntities.isEmpty()) {
+			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+		} else {
+			return new ResponseEntity<>(fileEntities, HttpStatus.OK);
+		}
+	}
+	
 }

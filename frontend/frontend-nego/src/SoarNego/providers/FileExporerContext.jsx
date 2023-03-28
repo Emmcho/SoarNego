@@ -1,12 +1,15 @@
 import { createContext, useState, useCallback } from "react";
 import { getEditorObject } from "../Editor";
+import axios from "axios";
+import { useReducer } from 'react';
 
 const FileContext = createContext();
+
 
 export function FileContextProvider({ children }) {
   const [selectedFile, setSelectedFile] = useState(null);
   const [currentFileId, setCurrentFileId] = useState(null)
-
+  const [filesLoaded, setFilesLoaded] = useState(false);
   const [editorContent, setEditorContent] = useState(
 
     {
@@ -27,24 +30,59 @@ export function FileContextProvider({ children }) {
   )
   const [currentFile, setCurrentFile] = useState('')
 
-
-
-  const [fileItems, setFileItems] = useState(
-    {
-      name: "Root Folder",
-      checked: 0,
-      isOpen: false, // this folder is opened, we can see it's children
-      children: [
-      ]
-    }
-  )
-
-  const addToFileList = (name, checked, isOpen, fileIndex, fileId) => {
-    setFileItems({
-      ...fileItems,
-      children: [...fileItems.children, { name, checked, isOpen, fileIndex, fileId }],
-    });
+  const initialState = {
+    name: 'Root Folder',
+    checked: 0,
+    isOpen: true,
+    children: [],
+    _id: 0,
   };
+  // prevents duplicated
+  const fileItemsReducer = (state, action) => {
+    switch (action.type) {
+      case 'ADD_TO_FILE_LIST':
+        // Check if file with the same name and fileId already exists in state
+        const existingFileIndex = state.children.findIndex(
+          (file) => file.name === action.payload.name && file.fileId === action.payload.fileId
+        );
+        if (existingFileIndex === -1) {
+          return {
+            ...state,
+            children: [...state.children, action.payload],
+          };
+        } else {
+          const newChildren = [...state.children];
+          newChildren[existingFileIndex] = action.payload;
+          return {
+            ...state,
+            children: newChildren,
+          };
+        }
+      default:
+        return state;
+    }
+  };
+  
+  
+  const [fileItems, dispatch] = useReducer(fileItemsReducer, initialState);
+
+  const addToFileList = useCallback(
+    (name, checked, isOpen, fileIndex, fileId) => {
+      // Check if file with the same name and fileId already exists in state
+      const existingFileIndex = fileItems.children.findIndex(
+        (file) => file.name === name && file.fileId === fileId
+      );
+      if (existingFileIndex === -1) {
+        dispatch({
+          type: 'ADD_TO_FILE_LIST',
+          payload: { name, checked, isOpen, fileIndex, fileId },
+        });
+      }
+    },
+    [fileItems.children]
+  );
+  
+  
   
   
 
@@ -62,7 +100,21 @@ export function FileContextProvider({ children }) {
     setCurrentFile(editorContentFromFileClick)
     setCurrentFileId(fileId)
   }
-
+  const fetchAllFiles = async () => {
+    try {
+      const response = await axios.get("http://localhost:8080/api/get/all-files");
+      const files = response.data;
+  
+      files.forEach((file) => {
+        addToFileList(file.fileName, 0, true, file.fileName + file.fileId, file.fileId);
+      });
+  
+      setFilesLoaded(true); // Add this line
+    } catch (error) {
+      console.error("Error fetching files:", error);
+    }
+  };
+  
 
   return (
     <FileContext.Provider value={{
@@ -74,7 +126,10 @@ export function FileContextProvider({ children }) {
       currentFile,
       currentFileId,
       selectedFile,
-      setSelectedFile
+      setSelectedFile,
+      fetchAllFiles,
+      filesLoaded, // Add this line
+      setFilesLoaded,
     }}>
       {children}
     </FileContext.Provider>

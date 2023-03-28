@@ -69,7 +69,7 @@ const hooks = [
               const url = `http://localhost:8080/api/update/files/${fileId}`;
               try {
                 const response = await axios.put(url, {
-                    fileId: fileId, // Assuming `fileId` is the file ID
+                
                     fileName: currentFile,
                     fileContent: content,
                 });

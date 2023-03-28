@@ -1,123 +1,115 @@
 import React from "react"
 import SoarNegoDataService from "../api/SoarNego/SoarNegoDataService.js"
-import {useState, useEffect} from "react"
+import { useState, useEffect } from "react"
 import axios from "axios";
 
 // to be implemented in replacement of react-d3-tree 
-import FolderTree, {testData} from "react-folder-tree";
+import FolderTree, { testData } from "react-folder-tree";
 import 'react-folder-tree/dist/style.css';
 import FileContext from "./providers/FileExporerContext.jsx";
 import { useContext } from "react";
+import FolderTreeWrapper from "./FolderTreeWrapper";
 
 
-export function Explorer(){
-    const {fileItems, sendToEditorContentLoader } = useContext(FileContext)
-    const {addToFileList, addFileToSessionStorage} = useContext(FileContext)
-    const {editorContent} = useContext(FileContext)
-   
-
+export function Explorer() {
     
+    const { fileItems, sendToEditorContentLoader,fetchAllFiles,filesLoaded,addToFileList } = useContext(FileContext)
     //Future enhancement is to be able to read multiple files at a time
+
     
-    const [fileList, setfileList] = useState([]);
-    
-    const treObjHolder = []
-    const [selFileName, setSelFileName] = useState('');
-   
+
     const [content, setContent] = useState('');
-    
+
     let fileReader
 
-   useEffect(() => {
-     //These variables are called in useEffect to synchronize re-rendering of file retrieved data       
-    const dummyRerender1= selFileName
-    const dummyRerender2= content
-    const dummytreObjHolder= treObjHolder
 
-  });
     
+   
+
+
     const handleClick = (event) => {
         //Initialize to '' so that when same file is clicked, OnChange will capture the event and chenge of file selection
         event.target.value = ''
     }
-  
+
     const handleFileRead = (e) => {
-        
+
         setContent(fileReader.result)
     }
 
 
-    const handleFileClick = (state, event)=>{
+    const handleFileClick = (state, event) => {
         //sending the file content to a context function API that saves it in the session storage 
         sendToEditorContentLoader(state.nodeData.fileIndex)
-        
+
 
         // console.log("Content sent to loader", state.nodeData.fileIndex)
 
     }
 
-        const handleFileChosen = (file) => {
-            
-            
+    const handleFileChosen = (file) => {
 
-            fileReader = new FileReader();
 
-            const fileName = file.name
-            const onLoaded = () => {
-                const fileContent = fileReader.result
-                const fileData = {
-                    fileId: 1,
-                    fileName,
-                    fileContent
-                }
-                
-                if (!fileData.fileName || !fileData.fileContent) return
-                axios.post('http://localhost:8080/api/save/files',fileData)
-                .then(function (response){
-                    addToFileList(response.data.fileName, 0, true, response.data.fileName + response.data.fileId, response.data.fileId);
-                    addFileToSessionStorage(response.data.fileName+response.data.fileId, response.data.fileContent)
-                })
-                
-                .catch(function(error){
-                console.log(error)
-                })   
+
+        fileReader = new FileReader();
+
+        const fileName = file.name
+        const onLoaded = () => {
+            const fileContent = fileReader.result
+            const fileData = {
+                fileId: 1,
+                fileName,
+                fileContent
             }
-            
-            fileReader.onloadend = onLoaded;
-            fileReader.readAsText(file)
-            
-        
+
+            if (!fileData.fileName || !fileData.fileContent) return
+            axios.post('http://localhost:8080/api/save/files', fileData)
+                .then(function (response) {
+                    addToFileList(response.data.fileName, 0, true, response.data.fileName + response.data.fileId, response.data.fileId);
+                })
+
+                .catch(function (error) {
+                    console.log(error)
+                })
         }
 
-    return(
-        <>  
+        fileReader.onloadend = onLoaded;
+        fileReader.readAsText(file)
 
-                        <div>
-                            <label>Load a File</label>
-                            <input type="file" onChange={e => handleFileChosen(e.target.files[0])}  onClick = {handleClick } name="fileLoader" id="myFile" accept=".json" ></input>
-                            
 
-                        </div>
-                       
+    }
+    useEffect(() => {
+        if (!filesLoaded) {
+          fetchAllFiles();
+        }
+      }, [filesLoaded, fetchAllFiles]);
+    return (
+        <>
 
             <div>
-                
-                   
+                <label>Load a File</label>
+                <input type="file" onChange={e => handleFileChosen(e.target.files[0])} onClick={handleClick} name="fileLoader" id="myFile" accept=".json" ></input>
             </div>
-          
-            
-            <FolderTree
-                data={ fileItems}
-                onNameClick ={handleFileClick}
-                
-               
-                />
+
+
 
             
-        
+            <div>
+        {filesLoaded ? (
+          <FolderTreeWrapper
+          fileItems={fileItems}
+            
+          />
+        ) : (
+          <p>Loading files...</p>
+        )}
+      </div>
+            
+
+
         </>
 
-        
+
     )
 }
 export default Explorer;
