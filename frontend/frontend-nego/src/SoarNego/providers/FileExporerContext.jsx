@@ -93,12 +93,20 @@ export function FileContextProvider({ children }) {
   }
 
   //Retrieves file content from the session storage
-  const sendToEditorContentLoader = (editorContentFromFileClick, fileId) => {
-    const fileContent = sessionStorage.getItem(editorContentFromFileClick)
-    const newEditorContent = getEditorObject(fileContent)
-    setEditorContent(newEditorContent)
-    setCurrentFile(editorContentFromFileClick)
-    setCurrentFileId(fileId)
+  const sendToEditorContentLoader = async (editorContentFromFileClick, fileId) => {
+    try {
+      const url = `http://localhost:8080/api/find/files/${fileId}`;
+      const response = await axios.get(url);
+      const file = response.data;
+      const fileContent = file.fileContent
+      const newEditorContent = getEditorObject(fileContent)
+      setEditorContent(newEditorContent)
+      setCurrentFile(editorContentFromFileClick)
+      setCurrentFileId(fileId)
+    } catch (error) {
+      console.error("Error fetching files:", error);
+    }
+    
   }
   const fetchAllFiles = async () => {
     try {

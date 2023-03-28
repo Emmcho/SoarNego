@@ -38,6 +38,8 @@ public class SecurityConfiguration {
 				.permitAll()
 				.antMatchers(HttpMethod.PUT, "/api/update/files/**")
 				.permitAll()
+				.antMatchers(HttpMethod.GET, "/api/find/files/**")
+				.permitAll()
 				.anyRequest()
 				.authenticated()
 
