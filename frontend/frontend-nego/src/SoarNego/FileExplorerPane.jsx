@@ -74,7 +74,7 @@ export function Explorer(){
                 if (!fileData.fileName || !fileData.fileContent) return
                 axios.post('http://localhost:8080/api/save/files',fileData)
                 .then(function (response){
-                    addToFileList(response.data.fileName, 0,true,response.data.fileName+response.data.fileId)
+                    addToFileList(response.data.fileName, 0, true, response.data.fileName + response.data.fileId, response.data.fileId);
                     addFileToSessionStorage(response.data.fileName+response.data.fileId, response.data.fileContent)
                 })
                 

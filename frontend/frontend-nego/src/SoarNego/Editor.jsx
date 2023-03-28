@@ -28,6 +28,7 @@ import { HighlightButtons} from './remirrorComponents/HighlightButtons';
 import { FontSizeButtons } from './remirrorComponents/FontSizeButtons';
 import { LineHeightButtonDropdown } from './remirrorComponents/LineHeightButtonDropdown';
 // These lines import the `FileContext` and `useContext` hooks from the `react` library, as well as a custom extension called `ToggleListItemExtension`.
+import axios from 'axios';
 
 
 const extensions = () => [
@@ -53,15 +54,36 @@ const extensions = () => [
 const hooks = [
     () => {
         const { getJSON } = useHelpers();
-
+        const { setSelectedFile,currentFile, fileItems } = useContext(FileContext);
         const handleSaveShortcut = useCallback(
-            ({ state }) => {
-                console.log(`Save to backend: ${JSON.stringify(getJSON(state))}`);
-
-                return true; // Prevents any further key handlers from being run.
+            async ({ state }) => {
+              const content = JSON.stringify(getJSON(state));
+              console.log(`Save to backend: ${content}`);
+                          
+              // Get the fileId from the FileContext
+              const fileItem = fileItems.children.find(item => item.fileIndex === currentFile);
+              const fileId = fileItem?.fileId;
+              console.log('File ID:', fileId);
+          
+              // Replace the URL below with your Spring Boot API endpoint
+              const url = `http://localhost:8080/api/update/files/${fileId}`;
+              try {
+                const response = await axios.put(url, {
+                    fileId: fileId, // Assuming `fileId` is the file ID
+                    fileName: currentFile,
+                    fileContent: content,
+                });
+                console.log('File saved successfully');
+              } catch (error) {
+                console.error('Error saving file:', error.message);
+              }
+              return true; // Prevents any further key handlers from being run.
             },
-            [getJSON],
+            [getJSON, currentFile, fileItems.children],
+          
+          
         );
+        
 
         useKeymap('Mod-s', handleSaveShortcut);
     },
