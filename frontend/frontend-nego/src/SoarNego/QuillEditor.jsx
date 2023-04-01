@@ -1,4 +1,4 @@
-
+//import React from 'react';
 import React, { useState } from "react";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
@@ -74,7 +74,7 @@ function Editor() {
    
     
       if (range) {
-        if (range.length == 0) {
+        if (range.length === 0) {
           console.log('User cursor is on', range.index);
           setShowMenu(false)
         } else {
