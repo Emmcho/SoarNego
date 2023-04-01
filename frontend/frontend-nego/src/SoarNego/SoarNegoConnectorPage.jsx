@@ -12,7 +12,6 @@ import SignInDetails from './SignIn';
 import Layout from './Layout';
 import { UserProvider } from './providers/UserProvider';
 import { FileContextProvider } from './providers/FileExporerContext';
-import {ShowDiffProvider} from './ShowDiffContext';
 
 
 
@@ -29,10 +28,13 @@ function SoarNegoConnectorPage () {
                         {/* <UserProvider child={ */}
                 <div className="SoarNegoConnectorPage">
                         <FileContextProvider>
-                        <ShowDiffProvider>
+                        
                             {/* <AuthenticatedRoute> */}
 
                             <Router>
+                                
+
+                                  
                                     <Routes>
                                         
                                         {/* <Route path="/" element={<Layout />}> */}
@@ -54,11 +56,11 @@ function SoarNegoConnectorPage () {
                                                     
                                         {/* </Route> */}
                                     </Routes>
+                                    <FooterComponent/>
+                                
                                     
                             </Router>
-                            </ShowDiffProvider>
                         </FileContextProvider>
-                       
                 </div>
                         {/* }>
                         </UserProvider> */}
